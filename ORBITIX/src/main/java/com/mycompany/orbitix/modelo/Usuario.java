@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.orbitix.modelo;
-
+import java.util.List;
 /**
  *
  * @author karla
