@@ -14,11 +14,10 @@ public class RepositorioArchivos implements RepositorioDatos {
     private final String PATH_VUELOS = "vuelos.txt";
     private final String PATH_COMPRAS = "compras.txt";
 
-    // --- MÉTODOS DE GUARDADO ---
 
     @Override
     public void guardarVuelo(Vuelo v) {
-        // Guardamos: codigo;origen;destino;duracion;modeloAvion;capacidad
+    
         String linea = String.format("%s;%s;%s;%.2f;%s;%d",
                 v.getCodigo(),
                 v.getRuta().getOrigen(), v.getRuta().getDestino(), v.getRuta().getDuracion(),
@@ -28,7 +27,7 @@ public class RepositorioArchivos implements RepositorioDatos {
 
     @Override
     public void guardarCompra(Compra c) {
-        // Guardamos: codigoCompra;total;cedulaPasajero;metodoPago;idPago
+       
         String linea = String.format("%s;%.2f;%s;%s;%s",
                 c.getCodigo(),
                 c.getTotal(),
@@ -38,21 +37,18 @@ public class RepositorioArchivos implements RepositorioDatos {
         escribirArchivo(PATH_COMPRAS, linea);
     }
 
-    // --- MÉTODOS DE CARGA ---
+
 
     @Override
-    public List<Vuelo> cargarVuelos() { // <--- CORREGIDO: Antes decía cargarDatos
+    public List<Vuelo> cargarVuelos() { 
         List<Vuelo> lista = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_VUELOS))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] d = linea.split(";");
-                if (d.length >= 6) { // Validación simple para evitar errores
-                    // Reconstrucción jerárquica: Ruta + Avion -> Vuelo
-                    // .replace(",", ".") ayuda si tu compu está en español y el archivo en inglés
+                if (d.length >= 6) { 
                     Ruta r = new Ruta(d[1], d[2], Double.parseDouble(d[3].replace(",", ".")));
                     Avion a = new Avion(d[4], Integer.parseInt(d[5]), "REG-AUTO");
-                    // Nota: La fecha se crea nueva cada vez, idealmente debería guardarse en el txt también
                     Vuelo v = new Vuelo(d[0], new java.util.Date(), "12:00", r, a);
                     lista.add(v);
                 }
@@ -63,22 +59,19 @@ public class RepositorioArchivos implements RepositorioDatos {
         return lista;
     }
 
-    // --- MÉTODOS OBLIGATORIOS FALTANTES (Stubs) ---
-    // Deben estar aquí para cumplir con la interfaz, aunque estén vacíos por ahora.
-
     @Override
     public void guardarPasajero(Pasajero pasajero) {
-        // TODO: Implementar lógica futura
+
     }
 
     @Override
     public List<Pasajero> cargarPasajeros() {
-        return new ArrayList<>(); // Retorna lista vacía para que no falle
+        return new ArrayList<>(); 
     }
 
     @Override
     public List<Compra> cargarCompras() {
-        return new ArrayList<>(); // Retorna lista vacía para que no falle
+        return new ArrayList<>(); 
     }
 
     @Override
@@ -87,7 +80,7 @@ public class RepositorioArchivos implements RepositorioDatos {
         new File(PATH_COMPRAS).delete();
     }
 
-    // --- UTILIDAD PRIVADA ---
+    
     private void escribirArchivo(String path, String contenido) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
             bw.write(contenido);
