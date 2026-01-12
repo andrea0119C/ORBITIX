@@ -13,6 +13,7 @@ public class RepositorioArchivos implements RepositorioDatos {
 
     private final String PATH_VUELOS = "vuelos.txt";
     private final String PATH_COMPRAS = "compras.txt";
+    private final String PATH_PASAJEROS = "pasajeros.txt"; 
 
 
     @Override
@@ -59,9 +60,12 @@ public class RepositorioArchivos implements RepositorioDatos {
         return lista;
     }
 
-    @Override
-    public void guardarPasajero(Pasajero pasajero) {
-
+   @Override
+    public void guardarPasajero(Pasajero p) {
+        String linea = String.format("%s;%s;%s;%s;%s;%d",
+                p.getCedula(), p.getNombre(), p.getApellido(),
+                p.getTelefono(), p.getEmail(), p.getEdad());
+        escribirArchivo(PATH_PASAJEROS, linea);
     }
 
     @Override
