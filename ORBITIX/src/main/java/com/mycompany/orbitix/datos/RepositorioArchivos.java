@@ -46,12 +46,9 @@ public class RepositorioArchivos implements RepositorioDatos {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] d = linea.split(";");
-                if (d.length >= 6) { // Validación simple para evitar errores
-                    // Reconstrucción jerárquica: Ruta + Avion -> Vuelo
-                    // .replace(",", ".") ayuda si tu compu está en español y el archivo en inglés
+                if (d.length >= 6) { 
                     Ruta r = new Ruta(d[1], d[2], Double.parseDouble(d[3].replace(",", ".")));
                     Avion a = new Avion(d[4], Integer.parseInt(d[5]), "REG-AUTO");
-                    // Nota: La fecha se crea nueva cada vez, idealmente debería guardarse en el txt también
                     Vuelo v = new Vuelo(d[0], new java.util.Date(), "12:00", r, a);
                     lista.add(v);
                 }
