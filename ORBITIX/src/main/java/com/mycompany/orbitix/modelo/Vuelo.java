@@ -33,7 +33,6 @@ public class Vuelo {
         }
     }
 
-    // Getters
     public String getCodigo() {
         return codigo;
     }
