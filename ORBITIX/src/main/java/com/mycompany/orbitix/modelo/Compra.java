@@ -55,4 +55,11 @@ public class Compra {
     public void setPago(Pago pago) {
         this.pago = pago;
     }
+    public Pasajero getPasajero() {
+    return pasajero;
+}
+
+    public Pago getPago() {
+    return pago;
+    }
 }
