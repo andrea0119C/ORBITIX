@@ -1,0 +1,4 @@
+V-100;Quito;Miami;4.50;Boeing 747;150
+V-101;Guayaquil;Madrid;11.00;Airbus A320;180
+V-102;Cuenca;Quito;0.45;Embraer 190;90
+V-103;Quito;Galapagos;2.00;Boeing 737;120
