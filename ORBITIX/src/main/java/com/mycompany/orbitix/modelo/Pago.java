@@ -10,7 +10,7 @@ public class Pago {
     private String id;
     private double monto;
     private Date fecha;
-    private MetodoPago metodo; // CORREGIDO: Mayúscula inicial (el Enum)
+    private MetodoPago metodo; 
 
     public Pago(String id, double monto, Date fecha, MetodoPago metodo) {
         this.id = id;
