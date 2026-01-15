@@ -15,8 +15,6 @@ import java.util.Scanner;
 public class ORBITIX {
 
     public static void main(String[] args) {
-        RepositorioDatos repo = new RepositorioArchivos();
-        List<Vuelo> vuelosDisponibles = repo.cargarVuelos();
 
       
         }
