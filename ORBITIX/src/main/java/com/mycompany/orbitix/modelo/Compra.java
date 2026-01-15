@@ -3,24 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.orbitix.modelo;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-/**
- *
- * @author valeria
- */
+
 public class Compra {
     private String codigo;
     private Date fecha;
     private double total;
-    private Pasajero pasajero;
+    private Usuario usuario; 
     private Pago pago;
-    private List<Pasaje> pasajes;
+    private List<Pasaje> pasajes; 
 
-    public Compra(String codigo, Pasajero pasajero) {
+    public Compra(String codigo, Usuario usuario) {
         this.codigo = codigo;
-        this.pasajero = pasajero;
+        this.usuario = usuario;
         this.fecha = new Date();
         this.pasajes = new ArrayList<>();
         this.total = 0;
@@ -32,34 +30,28 @@ public class Compra {
     }
 
     public boolean confirmarCompra() {
-        return pago != null && total > 0;
+        return pago != null && !pasajes.isEmpty();
     }
 
-    // Getters
-    public String getCodigo() {
+    // Getters y Setters
+    public String getCodigo(){
         return codigo;
     }
-
-    public Date getFecha() {
+    public Date getFecha(){
         return fecha;
     }
-
-    public double getTotal() {
-        return total;
+    public double getTotal(){return total;
     }
-
-    public List<Pasaje> getPasajes() {
+    public Usuario getUsuario(){
+        return usuario;
+    }
+    public List<Pasaje> getPasajes(){
         return pasajes;
     }
-
-    public void setPago(Pago pago) {
-        this.pago = pago;
+    public Pago getPago(){
+        return pago;
     }
-    public Pasajero getPasajero() {
-    return pasajero;
-}
-
-    public Pago getPago() {
-    return pago;
+    public void setPago(Pago pago){
+        this.pago = pago;
     }
 }
