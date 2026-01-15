@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.orbitix.modelo;
-import java.util.Date;
 
-/**
- *
- * @author karla
- */
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Vuelo {
 
     private String codigo;
@@ -16,7 +16,7 @@ public class Vuelo {
     private String hora;
     private Ruta ruta;
     private Avion avion;
-    private int asientosDisponibles;
+    private Set<String> asientosOcupados; 
 
     public Vuelo(String codigo, Date fecha, String hora, Ruta ruta, Avion avion) {
         this.codigo = codigo;
@@ -24,36 +24,34 @@ public class Vuelo {
         this.hora = hora;
         this.ruta = ruta;
         this.avion = avion;
-        this.asientosDisponibles = avion.getCapacidad();
+        this.asientosOcupados = new HashSet<>();
     }
 
-    public void disminuirAsientos() {
-        if (asientosDisponibles > 0) {
-            asientosDisponibles--;
+
+    public boolean esAsientoDisponible(String numeroAsiento) {
+        return !asientosOcupados.contains(numeroAsiento);
+    }
+
+
+    public void ocuparAsiento(String numeroAsiento) {
+        if (asientosOcupados.size() < avion.getCapacidad()) {
+            asientosOcupados.add(numeroAsiento);
         }
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public Ruta getRuta() {
-        return ruta;
-    }
-
-    public Avion getAvion() {
-        return avion;
-    }
+    public String getCodigo() { return codigo; }
+    public Date getFecha() { return fecha; }
+    public String getHora() { return hora; }
+    public Ruta getRuta() { return ruta; }
+    public Avion getAvion() { return avion; }
+    
 
     public int getAsientosDisponibles() {
-        return asientosDisponibles;
+        return avion.getCapacidad() - asientosOcupados.size();
+    }
+    
+    public Set<String> getAsientosOcupados() {
+        return asientosOcupados;
     }
 }
