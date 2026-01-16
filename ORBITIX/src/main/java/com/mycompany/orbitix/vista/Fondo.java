@@ -9,29 +9,23 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-/**
- *
- * @author paula
- */
 
 public class Fondo extends JPanel {
+    private Image imagen;
 
-    private Image imagenFondo;
-
-    public Fondo(String rutaImagen) {
+    public Fondo() {
         try {
-            imagenFondo = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
+            imagen = new ImageIcon(getClass().getResource("/recursos/fondo_login_orbitix.png")).getImage();
         } catch (Exception e) {
-            System.err.println("Error: No se encontró la imagen: " + rutaImagen);
+            System.out.println("Error: No se pudo cargar la imagen. Revisa la ruta.");
         }
-        setOpaque(false); 
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) { 
         super.paintComponent(g);
-        if (imagenFondo != null) {
-            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+        if (imagen != null) {
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
         }
     }
 }
