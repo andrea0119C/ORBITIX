@@ -35,7 +35,14 @@ public class VistaAcceso extends javax.swing.JFrame {
         this.setLayout(null); // Ya que quieres usar coordenadas libres
         this.setResizable(false);
         this.setLocationRelativeTo(null); 
- 
+        lblUsuario.setVisible(false);       // Cambia estos nombres por los 
+        lblContrasena.setVisible(false);    // nombres de tus variables reales
+        txtUsuario.setVisible(false);
+        txtContrasena.setVisible(false);
+        btnIngresar.setVisible(false);
+        btnVolver.setVisible(false);
+        
+
     }
 
     /*
@@ -49,56 +56,24 @@ public class VistaAcceso extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         pnlBienvenida = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        btnIrALogin = new javax.swing.JButton();
-        btnIrARegistro = new javax.swing.JButton();
         pnlLogin = new javax.swing.JPanel();
         pnllogin2 = new javax.swing.JPanel();
         pnlCuerpoLogin = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lblUsuario = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        lblContrasena = new javax.swing.JLabel();
+        txtContrasena = new javax.swing.JTextField();
+        btnIngresar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        btnIniciarSesion = new javax.swing.JButton();
+        btnCrearCuenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         pnlBienvenida.setOpaque(false);
-        pnlBienvenida.setPreferredSize(new java.awt.Dimension(500, 400));
+        pnlBienvenida.setPreferredSize(new java.awt.Dimension(800, 600));
         pnlBienvenida.setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 48)); // NOI18N
-        jLabel1.setText("ORBITIX");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 50, 0);
-        pnlBienvenida.add(jLabel1, gridBagConstraints);
-
-        btnIrALogin.setText("Iniciar Sesión");
-        btnIrALogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIrALoginActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
-        pnlBienvenida.add(btnIrALogin, gridBagConstraints);
-
-        btnIrARegistro.setText("Crear Cuenta Nueva");
-        btnIrARegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIrARegistroActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridheight = 5;
-        pnlBienvenida.add(btnIrARegistro, gridBagConstraints);
 
         pnlLogin.setOpaque(false);
 
@@ -110,22 +85,22 @@ public class VistaAcceso extends javax.swing.JFrame {
         pnlCuerpoLogin.setBackground(new java.awt.Color(153, 153, 153));
         pnlCuerpoLogin.setOpaque(false);
 
-        jLabel2.setText("Usuario:");
-        jLabel2.setOpaque(true);
+        lblUsuario.setText("Usuario:");
+        lblUsuario.setOpaque(true);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtUsuarioActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Contraseña:");
-        jLabel3.setOpaque(true);
+        lblContrasena.setText("Contraseña:");
+        lblContrasena.setOpaque(true);
 
-        jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
 
@@ -138,35 +113,49 @@ public class VistaAcceso extends javax.swing.JFrame {
                     .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlCuerpoLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField1)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
+                            .addComponent(lblContrasena)
+                            .addComponent(txtUsuario)
+                            .addComponent(lblUsuario)
+                            .addComponent(txtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
                     .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlCuerpoLoginLayout.setVerticalGroup(
             pnlCuerpoLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel2)
+                .addComponent(lblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(lblContrasena)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnIngresar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton2.setText("<<Volver");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setText("<<Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        btnIniciarSesion.setText("Iniciar Sesión");
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesionActionPerformed(evt);
+            }
+        });
+
+        btnCrearCuenta.setText("Crear Cuenta Nueva");
+        btnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearCuentaActionPerformed(evt);
             }
         });
 
@@ -174,24 +163,38 @@ public class VistaAcceso extends javax.swing.JFrame {
         pnllogin2.setLayout(pnllogin2Layout);
         pnllogin2Layout.setHorizontalGroup(
             pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnllogin2Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCrearCuenta)
+                    .addGroup(pnllogin2Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnIniciarSesion)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
-                        .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(55, 55, 55))))
+                        .addComponent(btnVolver)
+                        .addGap(50, 50, 50)))
+                .addContainerGap())
         );
         pnllogin2Layout.setVerticalGroup(
             pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnllogin2Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
+                .addContainerGap(120, Short.MAX_VALUE)
+                .addGroup(pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
+                        .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
+                        .addComponent(btnIniciarSesion)
+                        .addGap(97, 97, 97)))
+                .addGroup(pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVolver)
+                    .addGroup(pnllogin2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(btnCrearCuenta)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
@@ -202,39 +205,63 @@ public class VistaAcceso extends javax.swing.JFrame {
         );
         pnlLoginLayout.setVerticalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnllogin2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnllogin2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pnlBienvenida.add(pnlLogin, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 4;
+        pnlBienvenida.add(pnlLogin, gridBagConstraints);
 
         getContentPane().add(pnlBienvenida, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIrALoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrALoginActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
+        lblUsuario.setVisible(true);
+        lblContrasena.setVisible(true);
+        txtUsuario.setVisible(true);
+        txtContrasena.setVisible(true);
+        btnIngresar.setVisible(true);
+        btnVolver.setVisible(true);
+
+    // Opcional: Ocultar los botones iniciales
+        btnIniciarSesion.setVisible(false);
+        btnCrearCuenta.setVisible(false);
         CardLayout cl = (CardLayout)(getContentPane().getLayout());
         cl.show(getContentPane(), "pnlLogin");
-    }//GEN-LAST:event_btnIrALoginActionPerformed
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private void btnIrARegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrARegistroActionPerformed
+    private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnIrARegistroActionPerformed
+    }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
+        lblUsuario.setVisible(false);
+        lblContrasena.setVisible(false);
+        txtUsuario.setVisible(false);
+        txtContrasena.setVisible(false);
+        btnIngresar.setVisible(false);
+        btnVolver.setVisible(false);
+
+        // Mostramos los botones principales de nuevo
+        btnIniciarSesion.setVisible(true);
+        btnCrearCuenta.setVisible(true);
         CardLayout cl = (CardLayout)(this.getLayout()); 
         cl.show(this, "pnlBienvenida");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,18 +289,17 @@ public class VistaAcceso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIrALogin;
-    private javax.swing.JButton btnIrARegistro;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton btnCrearCuenta;
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JLabel lblContrasena;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel pnlBienvenida;
     private javax.swing.JPanel pnlCuerpoLogin;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JPanel pnllogin2;
+    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
