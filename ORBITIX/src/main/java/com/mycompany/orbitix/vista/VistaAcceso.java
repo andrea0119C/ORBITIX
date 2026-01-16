@@ -4,6 +4,8 @@
  */
 package com.mycompany.orbitix.vista;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author karla
