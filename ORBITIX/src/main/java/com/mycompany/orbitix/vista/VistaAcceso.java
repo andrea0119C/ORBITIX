@@ -80,8 +80,6 @@ public class VistaAcceso extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 5;
         pnlBienvenida.add(btnIrARegistro, gridBagConstraints);
 
-        pnlLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         pnllogin2.setBackground(new java.awt.Color(204, 204, 255));
         pnllogin2.setForeground(new java.awt.Color(204, 204, 255));
         pnllogin2.setAutoscrolls(true);
@@ -156,7 +154,7 @@ public class VistaAcceso extends javax.swing.JFrame {
         pnllogin2Layout.setHorizontalGroup(
             pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnllogin2Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
                         .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,10 +170,19 @@ public class VistaAcceso extends javax.swing.JFrame {
                 .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlLogin.add(pnllogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 240));
+        javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
+        pnlLogin.setLayout(pnlLoginLayout);
+        pnlLoginLayout.setHorizontalGroup(
+            pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnllogin2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        pnlLoginLayout.setVerticalGroup(
+            pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnllogin2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pnlBienvenida.add(pnlLogin, new java.awt.GridBagConstraints());
 
