@@ -7,6 +7,7 @@ package com.mycompany.orbitix.vista;
 import java.awt.CardLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,10 +22,20 @@ public class VistaAcceso extends javax.swing.JFrame {
      */
     public VistaAcceso() {
         initComponents();
-        setContentPane(new JLabel(new ImageIcon(getClass().getResource("/recursos/fondo_login_orbitix.png"))));
-        setLayout(null);
-        this.setLocationRelativeTo(null); // Centra la ventana
+        JLabel fondo = new JLabel(new ImageIcon(getClass().getResource("/recursos/fondo_login_orbitix.png")));
+    
+        fondo.setSize(800, 600); 
+
+        this.getLayeredPane().add(fondo, Integer.valueOf(Integer.MIN_VALUE));
+ 
+        ((JPanel)getContentPane()).setOpaque(false);
+
+   
         this.setSize(800, 600);
+        this.setLayout(null); // Ya que quieres usar coordenadas libres
+        this.setResizable(false);
+        this.setLocationRelativeTo(null); 
+ 
     }
 
     /*
