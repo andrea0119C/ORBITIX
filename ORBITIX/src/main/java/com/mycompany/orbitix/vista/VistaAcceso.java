@@ -27,22 +27,95 @@ public class VistaAcceso extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        pnlBienvenida = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnIrALogin = new javax.swing.JButton();
+        btnIrARegistro = new javax.swing.JButton();
+        pnlLogin = new javax.swing.JPanel();
+        pnllogin2 = new javax.swing.JPanel();
+        pnlCuerpoLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
+        pnlBienvenida.setPreferredSize(new java.awt.Dimension(500, 400));
+        pnlBienvenida.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 48)); // NOI18N
+        jLabel1.setText("ORBITIX");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 50, 0);
+        pnlBienvenida.add(jLabel1, gridBagConstraints);
+
+        btnIrALogin.setText("Iniciar Sesión");
+        btnIrALogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIrALoginActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
+        pnlBienvenida.add(btnIrALogin, gridBagConstraints);
+
+        btnIrARegistro.setText("Crear Cuenta Nueva");
+        btnIrARegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIrARegistroActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridheight = 5;
+        pnlBienvenida.add(btnIrARegistro, gridBagConstraints);
+
+        pnlLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnllogin2.setBackground(new java.awt.Color(204, 204, 255));
+        pnllogin2.setForeground(new java.awt.Color(204, 204, 255));
+        pnllogin2.setAutoscrolls(true);
+
+        pnlCuerpoLogin.setBackground(new java.awt.Color(204, 204, 204));
+        pnlCuerpoLogin.setText("jLabel2");
+
+        javax.swing.GroupLayout pnllogin2Layout = new javax.swing.GroupLayout(pnllogin2);
+        pnllogin2.setLayout(pnllogin2Layout);
+        pnllogin2Layout.setHorizontalGroup(
+            pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
+                .addContainerGap(80, Short.MAX_VALUE)
+                .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 366, Short.MAX_VALUE)
+        pnllogin2Layout.setVerticalGroup(
+            pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnllogin2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
+
+        pnlLogin.add(pnllogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 240));
+
+        pnlBienvenida.add(pnlLogin, new java.awt.GridBagConstraints());
+
+        getContentPane().add(pnlBienvenida, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIrALoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrALoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIrALoginActionPerformed
+
+    private void btnIrARegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrARegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIrARegistroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +143,12 @@ public class VistaAcceso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIrALogin;
+    private javax.swing.JButton btnIrARegistro;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel pnlBienvenida;
+    private javax.swing.JLabel pnlCuerpoLogin;
+    private javax.swing.JPanel pnlLogin;
+    private javax.swing.JPanel pnllogin2;
     // End of variables declaration//GEN-END:variables
 }
