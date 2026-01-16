@@ -3,55 +3,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.orbitix.modelo;
-import java.util.ArrayList;
-import java.util.List;
-/**
- *
- * @author valeria
- */
-public class Pasaje {
-     private String codigo;
-    private double precio;
-    private String asiento;
-    private ClaseAsiento clase;
-    private Pasajero pasajero;
-    private Vuelo vuelo;
-    private List<Equipaje> equipajes;
 
-    public Pasaje(String codigo, double precio, String asiento,
-                  ClaseAsiento clase, Pasajero pasajero, Vuelo vuelo) {
+public class Pasaje {
+    private String codigo;
+    private double precio;
+    private String asiento; // Ej: "12A"
+    private ClaseAsiento clase;
+    private Pasajero pasajero; // Datos de la persona que se sienta aquí
+    private Vuelo vuelo;
+    
+    public Pasaje(String codigo, double precio, String asiento, ClaseAsiento clase, Pasajero pasajero, Vuelo vuelo) {
         this.codigo = codigo;
         this.precio = precio;
         this.asiento = asiento;
         this.clase = clase;
         this.pasajero = pasajero;
         this.vuelo = vuelo;
-        this.equipajes = new ArrayList<>();
-    }
-
-    public void agregarEquipaje(Equipaje equipaje) {
-        equipajes.add(equipaje);
     }
 
     // Getters
-    public String getCodigo() {
+    public String getCodigo(){
         return codigo;
     }
-
-    public double getPrecio() {
+    public double getPrecio(){
         return precio;
     }
-
-    public Pasajero getPasajero() {
+    public String getAsiento(){
+        return asiento;
+    }
+    public Pasajero getPasajero(){
         return pasajero;
     }
-
-    public Vuelo getVuelo() {
+    public Vuelo getVuelo(){
         return vuelo;
     }
-
-    public List<Equipaje> getEquipajes() {
-        return equipajes;
-    }
-    
 }

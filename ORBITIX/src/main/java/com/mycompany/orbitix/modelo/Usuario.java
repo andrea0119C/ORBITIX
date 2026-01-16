@@ -3,36 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.orbitix.modelo;
-import java.util.List;
-/**
- *
- * @author karla
- */
-public abstract class Usuario {
 
+
+
+public abstract class Usuario {
     protected String cedula;
     protected String nombre;
     protected String email;
+    protected String password; 
 
-    public Usuario(String cedula, String nombre, String email) {
+    public Usuario(String cedula, String nombre, String email, String password) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.email = email;
+        this.password = password;
     }
 
-    public abstract List<Vuelo> buscarVuelos(String origen, String destino);
-    public abstract Compra realizarCompra(Vuelo vuelo);
-    public abstract List<Compra> verCompras();
 
-    public String getCedula() {
+    public String getCedula(){
         return cedula;
     }
-
-    public String getNombre() {
+    public String getNombre(){
         return nombre;
     }
-
-    public String getEmail() {
+    public String getEmail(){
         return email;
+    }
+    public String getPassword(){return password;
     }
 }
