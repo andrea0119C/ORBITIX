@@ -35,7 +35,13 @@ public class VistaAcceso extends javax.swing.JFrame {
         btnIrARegistro = new javax.swing.JButton();
         pnlLogin = new javax.swing.JPanel();
         pnllogin2 = new javax.swing.JPanel();
-        pnlCuerpoLogin = new javax.swing.JLabel();
+        pnlCuerpoLogin = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -74,33 +80,109 @@ public class VistaAcceso extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 5;
         pnlBienvenida.add(btnIrARegistro, gridBagConstraints);
 
-        pnlLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         pnllogin2.setBackground(new java.awt.Color(204, 204, 255));
         pnllogin2.setForeground(new java.awt.Color(204, 204, 255));
         pnllogin2.setAutoscrolls(true);
 
-        pnlCuerpoLogin.setBackground(new java.awt.Color(204, 204, 204));
-        pnlCuerpoLogin.setText("jLabel2");
+        pnlCuerpoLogin.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel2.setText("Usuario:");
+        jLabel2.setOpaque(true);
+
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Contraseña:");
+        jLabel3.setOpaque(true);
+
+        jTextField2.setText("jTextField2");
+
+        jButton1.setText("Ingresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlCuerpoLoginLayout = new javax.swing.GroupLayout(pnlCuerpoLogin);
+        pnlCuerpoLogin.setLayout(pnlCuerpoLoginLayout);
+        pnlCuerpoLoginLayout.setHorizontalGroup(
+            pnlCuerpoLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
+                .addGroup(pnlCuerpoLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlCuerpoLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextField2)))
+                    .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        pnlCuerpoLoginLayout.setVerticalGroup(
+            pnlCuerpoLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jButton2.setText("<<Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnllogin2Layout = new javax.swing.GroupLayout(pnllogin2);
         pnllogin2.setLayout(pnllogin2Layout);
         pnllogin2Layout.setHorizontalGroup(
             pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+            .addGroup(pnllogin2Layout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addGroup(pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
+                        .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnllogin2Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(55, 55, 55))))
         );
         pnllogin2Layout.setVerticalGroup(
             pnllogin2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnllogin2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addComponent(pnlCuerpoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlLogin.add(pnllogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 240));
+        javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
+        pnlLogin.setLayout(pnlLoginLayout);
+        pnlLoginLayout.setHorizontalGroup(
+            pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnllogin2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        pnlLoginLayout.setVerticalGroup(
+            pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnllogin2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pnlBienvenida.add(pnlLogin, new java.awt.GridBagConstraints());
 
@@ -116,6 +198,20 @@ public class VistaAcceso extends javax.swing.JFrame {
     private void btnIrARegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrARegistroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIrARegistroActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout)(this.getLayout()); 
+        cl.show(this, "pnlBienvenida");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,9 +241,15 @@ public class VistaAcceso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIrALogin;
     private javax.swing.JButton btnIrARegistro;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel pnlBienvenida;
-    private javax.swing.JLabel pnlCuerpoLogin;
+    private javax.swing.JPanel pnlCuerpoLogin;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JPanel pnllogin2;
     // End of variables declaration//GEN-END:variables
