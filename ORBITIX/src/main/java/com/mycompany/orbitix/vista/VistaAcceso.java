@@ -89,7 +89,6 @@ public class VistaAcceso extends javax.swing.JFrame {
         jLabel2.setText("Usuario:");
         jLabel2.setOpaque(true);
 
-        jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -98,8 +97,6 @@ public class VistaAcceso extends javax.swing.JFrame {
 
         jLabel3.setText("Contraseña:");
         jLabel3.setOpaque(true);
-
-        jTextField2.setText("jTextField2");
 
         jButton1.setText("Ingresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -118,9 +115,9 @@ public class VistaAcceso extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(pnlCuerpoLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jTextField1)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2)))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
                     .addGroup(pnlCuerpoLoginLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -193,6 +190,8 @@ public class VistaAcceso extends javax.swing.JFrame {
 
     private void btnIrALoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrALoginActionPerformed
         // TODO add your handling code here:
+        CardLayout cl = (CardLayout)(getContentPane().getLayout());
+        cl.show(getContentPane(), "pnlLogin");
     }//GEN-LAST:event_btnIrALoginActionPerformed
 
     private void btnIrARegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrARegistroActionPerformed
