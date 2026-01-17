@@ -1,4 +1,3 @@
-V-100;Quito;Miami;4.50;Boeing 747;150
-V-101;Guayaquil;Madrid;11.00;Airbus A320;180
-V-102;Cuenca;Quito;0.45;Embraer 190;90
-V-103;Quito;Galapagos;2.00;Boeing 737;120
+V001;Quito;Guayaquil;0.45;Airbus A320;150;25/01/2026;85.50
+V002;Guayaquil;Quito;0.50;Boeing 737;120;26/01/2026;75.00
+V003;Quito;Cuenca;0.40;Embraer 190;90;25/01/2026;60.00

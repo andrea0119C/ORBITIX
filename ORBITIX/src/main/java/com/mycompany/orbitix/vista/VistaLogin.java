@@ -154,7 +154,7 @@ public class VistaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-String email = txtusuario1.getText(); 
+    String email = txtusuario1.getText(); 
     String pass = new String(txtcontra.getPassword()); 
 
     com.mycompany.orbitix.controlador.UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
@@ -163,7 +163,7 @@ String email = txtusuario1.getText();
     if (user != null) {
         
         intentos = 0; 
-        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getNombre());
+        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getEmail());
         
         
     } else {
