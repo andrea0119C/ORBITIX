@@ -21,6 +21,30 @@ public class VistaRegistro extends javax.swing.JFrame {
   public VistaRegistro() {
     initComponents();
 
+    txtusuario1LOG.setText("Ejemplo: usuario@correo.com");
+    txtcontra.setText(""); 
+
+   
+    txtusuario1LOG.setForeground(java.awt.Color.GRAY);
+
+   
+    txtusuario1LOG.addFocusListener(new java.awt.event.FocusAdapter() {
+        @Override
+        public void focusGained(java.awt.event.FocusEvent evt) {
+            if (txtusuario1LOG.getText().equals("Ejemplo: usuario@correo.com")) {
+                txtusuario1LOG.setText("");
+                txtusuario1LOG.setForeground(java.awt.Color.BLACK);
+            }
+        }
+        @Override
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            if (txtusuario1LOG.getText().isEmpty()) {
+                txtusuario1LOG.setForeground(java.awt.Color.GRAY);
+                txtusuario1LOG.setText("Ejemplo: usuario@correo.com");
+            }
+        }
+    });
+    
     Fondo fondo = new Fondo();
     fondo.setLayout(new java.awt.BorderLayout());
     setContentPane(fondo);
@@ -152,17 +176,25 @@ public class VistaRegistro extends javax.swing.JFrame {
     UsuarioControlador control = new UsuarioControlador();
 
 
-    if (email.isEmpty() || pass.isEmpty() || pass.equals("jPasswordField1")) {
+    if (email.isEmpty() || email.equals("Ejemplo: usuario@correo.com") || pass.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
         return;
     }
 
- 
+   
+    if (!email.contains("@") || !email.contains(".")) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "El formato del correo es incorrecto.\nDebe ser tipo: usuario@correo.com", 
+            "Formato Inválido", 
+            javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+  
     if (control.login(email, pass) != null) { 
         javax.swing.JOptionPane.showMessageDialog(this, "Este correo ya está registrado.");
         return;
     }
-
 
     if (control.registrar(email, pass)) {
         javax.swing.JOptionPane.showMessageDialog(this, "¡Cuenta creada exitosamente!");

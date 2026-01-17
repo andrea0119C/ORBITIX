@@ -19,6 +19,9 @@ public class VistaLogin extends javax.swing.JFrame {
     /**
      * Creates new form VentanaLogin
      */
+   
+    private int intentos = 0;
+    
     public VistaLogin() {
     initComponents();
 
@@ -153,19 +156,44 @@ public class VistaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-
-       String email = txtusuario1.getText(); 
-    
+String email = txtusuario1.getText(); 
     String pass = new String(txtcontra.getPassword()); 
 
     com.mycompany.orbitix.controlador.UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
     com.mycompany.orbitix.modelo.Usuario user = control.login(email, pass);
 
     if (user != null) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getEmail());
-        // Aquí puedes abrir tu siguiente ventana
+        // ÉXITO: Reiniciamos intentos y damos la bienvenida
+        intentos = 0; 
+        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getNombre());
+        
+        // Aquí abrirías tu siguiente ventana, por ejemplo:
+        // VistaMenu menu = new VistaMenu();
+        // menu.setVisible(true);
+        // this.dispose();
+        
     } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
+        // ERROR: Aumentamos el contador
+        intentos++;
+        
+        if (intentos >= 3) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Has superado el límite de 3 intentos.\nEl sistema se cerrará por seguridad.", 
+                "ACCESO BLOQUEADO", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            
+            System.exit(0); // Cierra la aplicación
+        } else {
+            int restantes = 3 - intentos;
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Correo o contraseña incorrectos.\nTe quedan " + restantes + " intentos.", 
+                "Error de Autenticación", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            
+            // Limpiamos el campo de clave y ponemos el foco ahí para reintentar
+            txtcontra.setText("");
+            txtcontra.requestFocus();
+        }
     }
 
     }//GEN-LAST:event_btnIngresarActionPerformed
