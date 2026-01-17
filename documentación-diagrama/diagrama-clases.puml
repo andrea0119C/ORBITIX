@@ -1,0 +1,136 @@
+@startuml
+note "Autoras:VALERIA CHAVEZ,ANDREA CUMBAL,KARLA GUANA,PAULA GRANDA,PAOLA PACHECO" as N1
+package ORBITIX {
+
+abstract class Usuario {
+    - cedula : String
+    - nombre : String
+    - email : String
+    + buscarVuelos()
+    + realizarCompra() 
+    + verCompras() 
+}
+
+class Aerolinea {
+    - nombre : String
+    - vuelos : List<Vuelo>
+    + agregarVuelo()
+    + listarVuelos() 
+}
+
+class Vuelo {
+    - codigo : String
+    - fecha : Date
+    - hora : String
+    - ruta : Ruta
+    - avion : Avion
+    - asientosDisponibles : int
+    + disminuirAsientos()
+}
+
+class Ruta {
+    - origen : String
+    - destino : String
+    - duracion : double
+}
+
+class Avion {
+    - modelo : String
+    - capacidad : int
+    - registroAeronautico: String
+}
+
+class Pasajero {
+    - cedula : String
+    - nombre : String
+    - apellido: String
+    - telefono: String
+    - email : String
+    - edad: int
+}
+
+class Compra {
+    - codigo : String
+    - fecha : Date
+    - total : double
+    + confirmarCompra()
+}
+
+class Pasaje {
+    - codigo : String
+    - precio : double
+    - asiento : String
+    - clase : ClaseAsiento
+    - pasajero : Pasajero
+    - vuelo : Vuelo
+}
+
+class Pago {
+    - id : String
+    - monto : double
+    - fecha : Date
+    - metodo : MetodoPago
+    + procesarPago() : boolean
+}
+
+enum MetodoPago {
+    TARJETA
+    TRANSFERENCIA
+    PAYPAL
+}
+
+class Equipaje {
+    - tipo : TipoEquipaje
+    - peso : double
+    - costoExtra : double
+}
+
+enum ClaseAsiento {
+    ECONOMICA
+    EJECUTIVA
+    PRIMERA
+}
+
+enum TipoEquipaje {
+    ARTICULO_PERSONAL
+    MALETA_MANO
+    MALETA_BODEGA
+}
+
+interface RepositorioDatos {
+    + guardarVuelo()
+    + cargarVuelos()
+    + guardarPasajero()
+    + cargarPasajeros()
+    + guardarCompra()
+    + cargarCompras()
+    + borrarTodo()
+}
+
+class RepositorioArchivos {
+    + guardarVuelo()
+    + cargarVuelos()
+    + guardarPasajero()
+    + cargarPasajeros()
+    + guardarCompra()
+    + cargarCompras()
+    + borrarTodo()
+}
+
+RepositorioDatos <|.. RepositorioArchivos
+
+Aerolinea "1" o-- "*" Vuelo
+Vuelo "1" o-- "1" Ruta
+Vuelo "1" o-- "1" Avion
+
+Compra "1" o-- "*" Pasaje
+Usuario "1" o-- "*" Compra
+Compra "1" o-- "1" Pasajero
+Compra "1" o-- "1" Pago
+
+Pasaje "1" o-- "1" Vuelo
+Pasaje "1" o-- "1" Pasajero
+Pasaje "1" o-- "*" Equipaje
+
+}
+@enduml
