@@ -18,9 +18,7 @@ public class PasajeControlador {
     public boolean registrarVentaTotal(List<Pasaje> listaPasajes) {
         try {
             for (Pasaje p : listaPasajes) {
-                // 1. Guardamos los datos del pasajero en pasajeros.txt
                 repo.guardarPasajero(p.getPasajero());
-                // 2. Guardamos el ticket en pasajes.txt
                 repo.guardarPasaje(p);
             }
             return true;
