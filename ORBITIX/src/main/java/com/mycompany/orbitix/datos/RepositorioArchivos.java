@@ -16,18 +16,24 @@ public class RepositorioArchivos implements RepositorioDatos {
     private final String PATH_PASAJES = "pasajes.txt"; 
     private final String PATH_USUARIOS = "usuarios.txt"; 
 
-    @Override
-    public void guardarVuelo(Vuelo v) {
-
-         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_VUELOS, true))) {
-            String linea = String.format("%s;%s;%s;%.2f;%s;%d",
-                    v.getCodigo(),
-                    v.getRuta().getOrigen(), v.getRuta().getDestino(), v.getRuta().getDuracion(),
-                    v.getAvion().getModelo(), v.getAvion().getCapacidad());
-            bw.write(linea);
-            bw.newLine();
-        } catch (IOException e) { e.printStackTrace(); }
-    }
+        @Override
+        public void guardarVuelo(Vuelo v) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_VUELOS, true))) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+       
+                String linea = String.format(Locale.US, "%s;%s;%s;%.2f;%s;%d;%s;%.2f",
+                        v.getCodigo(),
+                        v.getRuta().getOrigen(), 
+                        v.getRuta().getDestino(), 
+                        v.getRuta().getDuracion(),
+                        v.getAvion().getModelo(), 
+                        v.getAvion().getCapacidad(),
+                        sdf.format(v.getFecha()), 
+                        v.getPrecio());           
+                bw.write(linea);
+                bw.newLine();
+            } catch (IOException e) { e.printStackTrace(); }
+        }
 
     @Override
     public void guardarCompra(Compra c) {

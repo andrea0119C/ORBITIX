@@ -4,7 +4,6 @@
  */
 package com.mycompany.orbitix.modelo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +38,7 @@ public class Vuelo {
         }
     }
 
-    // Getters
+   
     public String getCodigo() { return codigo; }
     public Date getFecha() { return fecha; }
     public String getHora() { return hora; }

@@ -4,6 +4,7 @@
  */
 package com.mycompany.orbitix.vista;
 
+import com.mycompany.orbitix.modelo.Vuelo;
 import javax.swing.JFrame;
 
 /**
@@ -13,13 +14,18 @@ import javax.swing.JFrame;
 public class VistaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPrincipal.class.getName());
+    private java.util.List<Vuelo> listaVuelosActuales; 
+    private com.mycompany.orbitix.datos.RepositorioArchivos repo = new com.mycompany.orbitix.datos.RepositorioArchivos();
 
     /**
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() {
      initComponents();
-
+     
+    configurarTabla(); 
+    llenarCombosDinamicos();
+    
     Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
     fondo.setLayout(new java.awt.BorderLayout());
     setContentPane(fondo);
@@ -221,19 +227,98 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cbseldestinoActionPerformed
 
     private void btnBuscarVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarVuelosActionPerformed
-        // TODO add your handling code here:
+    String origen = cbselorigen.getSelectedItem().toString();
+        String destino = cbseldestino.getSelectedItem().toString();
+
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaVuelos.getModel();
+        modelo.setRowCount(0); // Limpiar tabla antes de mostrar nuevos resultados
+
+        for (Vuelo v : listaVuelosActuales) {
+            if (v.getRuta().getOrigen().equals(origen) && v.getRuta().getDestino().equals(destino)) {
+                modelo.addRow(new Object[]{
+                    v.getCodigo(),
+                    new java.text.SimpleDateFormat("dd/MM/yyyy").format(v.getFecha()),
+                    v.getRuta().getOrigen() + " -> " + v.getRuta().getDestino(),
+                    "$" + String.format("%.2f", v.getPrecio()),
+                    v.getRuta().getDuracionFormateada(), 
+                    v.getAsientosDisponibles()
+                });
+            }
+        }
     }//GEN-LAST:event_btnBuscarVuelosActionPerformed
 
     private void btnSelecComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecComprarActionPerformed
-        // TODO add your handling code here:
+        int fila = tablaVuelos.getSelectedRow();
+     if (fila == -1) {
+         javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
+         return;
+     }
+
+     String codigo = tablaVuelos.getValueAt(fila, 0).toString();
+     Vuelo seleccionado = null;
+
+     for(Vuelo v : listaVuelosActuales) {
+         if(v.getCodigo().equals(codigo)) {
+             seleccionado = v;
+             break;
+         }
+     }
+
+     if (seleccionado != null) {
+         VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado);
+         mapa.setVisible(true);
+
+         String asiento = mapa.getAsientoSeleccionado();
+         if (!asiento.isEmpty()) {
+             // Aquí llamarías a tu ventana de datos de pasajero y pago
+             System.out.println("Asiento reservado: " + asiento);
+         }
+     }
     }//GEN-LAST:event_btnSelecComprarActionPerformed
 
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
-        // TODO add your handling code here:
+        int fila = tablaVuelos.getSelectedRow();
+    if (fila == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione un vuelo de la tabla.");
+        return;
+    }
+
+    String codigo = tablaVuelos.getValueAt(fila, 0).toString();
+    Vuelo seleccionado = null;
+
+    for(Vuelo v : listaVuelosActuales) {
+        if(v.getCodigo().equals(codigo)) {
+            seleccionado = v;
+            break;
+        }
+    }
+
+    if (seleccionado != null) {
+        VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado);
+        mapa.setVisible(true);
+
+        String asiento = mapa.getAsientoSeleccionado();
+        if (asiento != null && !asiento.isEmpty()) {
+            // PRÓXIMO PASO:
+            // Abrir ventana para ingresar Nombre y Cédula del pasajero
+            // Por ahora lo imprimimos para probar:
+            javax.swing.JOptionPane.showMessageDialog(this, "Asiento " + asiento + " reservado.\nProcedamos al registro del pasajero.");
+            
+            // Aquí llamarías a: new VistaRegistroPasajero(this, seleccionado, asiento).setVisible(true);
+        }
+    }
     }//GEN-LAST:event_btnComprasActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+                                        
+    int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "¿Está seguro que desea salir?", "Orbitix - Salir", 
+            javax.swing.JOptionPane.YES_NO_OPTION);
+    
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+        System.exit(0);
+    }
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
@@ -276,4 +361,34 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTable tablaVuelos;
     // End of variables declaration//GEN-END:variables
+    private void configurarTabla() {
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+                new Object [][] {},
+                // Añadimos "Duración" entre Precio y Disponibles
+                new String [] { "Código", "Fecha", "Ruta", "Precio", "Duración", "Disponibles" }
+            ) {
+                @Override
+                public boolean isCellEditable(int row, int column) { return false; } // Tabla no editable
+            };
+            tablaVuelos.setModel(modelo);
+    }
+
+    private void llenarCombosDinamicos() {
+        cbselorigen.removeAllItems();
+        cbseldestino.removeAllItems();
+
+        java.util.Set<String> origenes = new java.util.HashSet<>();
+        java.util.Set<String> destinos = new java.util.HashSet<>();
+
+        listaVuelosActuales = repo.cargarVuelos(); // Carga desde el archivo
+
+        for (Vuelo v : listaVuelosActuales) {
+            origenes.add(v.getRuta().getOrigen());
+            destinos.add(v.getRuta().getDestino());
+        }
+
+        for (String o : origenes) cbselorigen.addItem(o);
+        for (String d : destinos) cbseldestino.addItem(d);
+}
+
 }

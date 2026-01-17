@@ -162,9 +162,16 @@ public class VistaLogin extends javax.swing.JFrame {
 
     if (user != null) {
         
-        intentos = 0; 
+
         javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getEmail());
+        intentos = 0; 
+        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getNombre());
         
+ 
+        VistaPrincipal principal = new VistaPrincipal(); 
+        principal.setVisible(true); 
+        this.dispose(); 
+       
         
     } else {
         
