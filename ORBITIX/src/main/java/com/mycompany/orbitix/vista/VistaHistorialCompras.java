@@ -4,9 +4,11 @@
  */
 package com.mycompany.orbitix.vista;
 
+import javax.swing.JFrame;
+
 /**
  *
- * @author paula
+ * @author USUARIO
  */
 public class VistaHistorialCompras extends javax.swing.JDialog {
     
@@ -15,10 +17,21 @@ public class VistaHistorialCompras extends javax.swing.JDialog {
     /**
      * Creates new form VistaHistorialCompras
      */
-    public VistaHistorialCompras(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
+public VistaHistorialCompras(java.awt.Frame parent, boolean modal) {
+    super(parent, modal);
+
+    initComponents(); 
+    Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
+    fondo.setLayout(new java.awt.BorderLayout());
+    if (panelHistorial != null) {
+        panelHistorial.setOpaque(false); 
+        fondo.add(panelHistorial, java.awt.BorderLayout.CENTER);
     }
+    
+    setContentPane(fondo);
+    this.setSize(1000, 700); 
+    this.setLocationRelativeTo(null); 
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,21 +42,94 @@ public class VistaHistorialCompras extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelHistorial = new javax.swing.JPanel();
+        labelcomprah = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaHistorial = new javax.swing.JTable();
+        btnvolverhistorial = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        panelHistorial.setBackground(new java.awt.Color(102, 0, 102));
+        panelHistorial.setPreferredSize(new java.awt.Dimension(1360, 677));
+
+        labelcomprah.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
+        labelcomprah.setForeground(new java.awt.Color(255, 255, 255));
+        labelcomprah.setText("           MIS COMPRAS");
+
+        tablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaHistorial);
+
+        btnvolverhistorial.setBackground(new java.awt.Color(153, 0, 255));
+        btnvolverhistorial.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnvolverhistorial.setForeground(new java.awt.Color(255, 255, 255));
+        btnvolverhistorial.setText("VOLVER");
+        btnvolverhistorial.addActionListener(this::btnvolverhistorialActionPerformed);
+
+        javax.swing.GroupLayout panelHistorialLayout = new javax.swing.GroupLayout(panelHistorial);
+        panelHistorial.setLayout(panelHistorialLayout);
+        panelHistorialLayout.setHorizontalGroup(
+            panelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHistorialLayout.createSequentialGroup()
+                .addGroup(panelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHistorialLayout.createSequentialGroup()
+                        .addGap(391, 391, 391)
+                        .addGroup(panelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelHistorialLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelcomprah, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelHistorialLayout.createSequentialGroup()
+                        .addGap(587, 587, 587)
+                        .addComponent(btnvolverhistorial)))
+                .addContainerGap(498, Short.MAX_VALUE))
+        );
+        panelHistorialLayout.setVerticalGroup(
+            panelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHistorialLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(labelcomprah, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(btnvolverhistorial)
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnvolverhistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverhistorialActionPerformed
+    this.dispose();
+      
+
+    }//GEN-LAST:event_btnvolverhistorialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -83,5 +169,10 @@ public class VistaHistorialCompras extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnvolverhistorial;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelcomprah;
+    private javax.swing.JPanel panelHistorial;
+    private javax.swing.JTable tablaHistorial;
     // End of variables declaration//GEN-END:variables
 }
