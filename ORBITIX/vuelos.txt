@@ -1,3 +1,51 @@
 V001;Quito;Guayaquil;0.45;Airbus A320;150;25/01/2026;85.50
 V002;Guayaquil;Quito;0.50;Boeing 737;120;26/01/2026;75.00
 V003;Quito;Cuenca;0.40;Embraer 190;90;25/01/2026;60.00
+V004;Cuenca;Quito;0.40;Embraer 190;90;26/01/2026;60.00
+V005;Quito;Manta;0.50;ATR 72;70;27/01/2026;70.00
+V006;Manta;Quito;0.50;ATR 72;70;28/01/2026;70.00
+V007;Guayaquil;Galapagos;1.50;Boeing 737;140;29/01/2026;180.00
+V008;Galapagos;Guayaquil;1.45;Boeing 737;140;30/01/2026;185.00
+V009;Quito;Loja;1.00;Embraer 190;90;27/01/2026;95.00
+V010;Loja;Quito;1.00;Embraer 190;90;28/01/2026;95.00
+V011;Quito;Coca;0.35;ATR 42;48;29/01/2026;55.00
+V012;Coca;Quito;0.35;ATR 42;48;29/01/2026;55.00
+V013;Guayaquil;Cuenca;0.45;ATR 72;70;30/01/2026;65.00
+V014;Quito;Esmeraldas;0.40;Embraer 190;90;31/01/2026;75.00
+V015;Quito;Galapagos;2.10;Airbus A319;120;01/02/2026;210.00
+V016;Quito;Bogota;1.30;Airbus A320;150;25/01/2026;250.00
+V017;Bogota;Quito;1.30;Airbus A320;150;26/01/2026;245.00
+V018;Guayaquil;Panama;1.55;Boeing 737;160;27/01/2026;320.00
+V019;Panama;Guayaquil;1.55;Boeing 737;160;28/01/2026;310.00
+V020;Quito;Lima;2.15;Airbus A319;120;29/01/2026;280.00
+V021;Lima;Quito;2.15;Airbus A319;120;30/01/2026;275.00
+V022;Guayaquil;Miami;4.10;Airbus A321;180;31/01/2026;450.00
+V023;Miami;Guayaquil;4.10;Airbus A321;180;01/02/2026;460.00
+V024;Quito;Mexico City;4.45;Boeing 737 MAX;160;02/02/2026;550.00
+V025;Mexico City;Quito;4.45;Boeing 737 MAX;160;03/02/2026;540.00
+V026;Quito;Madrid;11.00;Airbus A350;300;04/02/2026;1100.00
+V027;Madrid;Quito;11.30;Airbus A350;300;05/02/2026;1050.00
+V028;Guayaquil;New York;6.20;Boeing 767;220;26/01/2026;650.00
+V029;New York;Guayaquil;6.20;Boeing 767;220;27/01/2026;630.00
+V030;Quito;Buenos Aires;5.50;Boeing 787;250;28/01/2026;700.00
+V031;Buenos Aires;Quito;6.00;Boeing 787;250;29/01/2026;710.00
+V032;Quito;Santiago;5.15;Airbus A320 Neo;160;30/01/2026;580.00
+V033;Santiago;Quito;5.15;Airbus A320 Neo;160;31/01/2026;590.00
+V034;Guayaquil;Fort Lauderdale;4.00;Airbus A320;150;01/02/2026;380.00
+V035;Quito;Houston;5.20;Boeing 757;200;02/02/2026;620.00
+V036;Quito;Amsterdam;11.45;Boeing 777;350;03/02/2026;1250.00
+V037;Amsterdam;Quito;12.00;Boeing 777;350;04/02/2026;1300.00
+V038;Guayaquil;Madrid;11.10;Airbus A330;280;05/02/2026;980.00
+V039;Quito;San Salvador;2.50;Airbus A319;120;06/02/2026;350.00
+V040;Quito;Medellin;1.15;ATR 72;70;07/02/2026;190.00
+V041;Medellin;Quito;1.15;ATR 72;70;08/02/2026;190.00
+V042;Quito;Sao Paulo;6.10;Boeing 737;150;09/02/2026;680.00
+V043;Sao Paulo;Quito;6.15;Boeing 737;150;10/02/2026;670.00
+V044;Guayaquil;Bogota;1.40;Airbus A320;150;25/01/2026;230.00
+V045;Quito;Punta Cana;3.45;Boeing 737;160;26/01/2026;480.00
+V046;Punta Cana;Quito;3.45;Boeing 737;160;02/02/2026;475.00
+V047;Quito;Cancun;4.00;Airbus A321;180;03/02/2026;510.00
+V048;Cancun;Quito;4.00;Airbus A321;180;10/02/2026;520.00
+V049;Quito;Santa Rosa;0.50;Embraer 190;90;28/01/2026;80.00
+V050;Santa Rosa;Quito;0.50;Embraer 190;90;29/01/2026;80.00
+
