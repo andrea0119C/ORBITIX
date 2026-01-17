@@ -23,7 +23,7 @@ public class VistaLogin extends javax.swing.JFrame {
     public VistaLogin() {
     initComponents();
 
-    Fondo fondo = new Fondo();
+    Fondo fondo = new Fondo("/recursos/fondo_login_orbitix.png");
     fondo.setLayout(new java.awt.BorderLayout());
     setContentPane(fondo);
 

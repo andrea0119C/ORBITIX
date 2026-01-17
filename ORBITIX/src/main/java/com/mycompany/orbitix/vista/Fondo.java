@@ -13,11 +13,13 @@ import javax.swing.JPanel;
 public class Fondo extends JPanel {
     private Image imagen;
 
-    public Fondo() {
+    
+    public Fondo(String ruta) {
         try {
-            imagen = new ImageIcon(getClass().getResource("/recursos/fondo_login_orbitix.png")).getImage();
+           
+            imagen = new ImageIcon(getClass().getResource(ruta)).getImage();
         } catch (Exception e) {
-            System.out.println("Error: No se pudo cargar la imagen. Revisa la ruta.");
+            System.out.println("Error: No se pudo cargar la imagen en " + ruta);
         }
     }
 
