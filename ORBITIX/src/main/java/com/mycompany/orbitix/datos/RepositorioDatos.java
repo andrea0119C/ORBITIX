@@ -8,22 +8,21 @@ import java.util.List;
 
 public interface RepositorioDatos {
     
-    // --- Gestión de Vuelos ---
-    void guardarVuelo(Vuelo vuelo); // Guarda un vuelo en vuelos.txt
-    List<Vuelo> cargarVuelos();    // Recupera todos los vuelos
+  
+    void guardarVuelo(Vuelo vuelo); 
+    List<Vuelo> cargarVuelos();    
     
-    // --- Gestión de Usuarios y Pasajeros ---
-    // El UML muestra que Pasajero es una entidad clave en la Compra
+    void guardarCliente(Cliente cliente); 
+    Usuario autenticarUsuario(String email, String password);
+    
     void guardarPasajero(Pasajero pasajero); 
     List<Pasajero> cargarPasajeros();
-    
-    // --- Gestión de Compras y Pagos ---
-    // Una compra agrupa Pasaje, Pago y Pasajero según tu UML
+
     void guardarCompra(Compra compra);
     List<Compra> cargarCompras(); 
     
-    // --- Utilidades de limpieza ---
-    void borrarTodo(); // Útil para reiniciar el sistema durante pruebas
+    
+    void borrarTodo(); 
 }
 
 

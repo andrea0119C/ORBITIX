@@ -53,17 +53,21 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="451" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace pref="127" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="labelregistro" min="-2" pref="471" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="762" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelusuarioLOG" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtusuario1LOG" alignment="0" min="-2" pref="207" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="txtcontra" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtusuario1LOG" alignment="0" pref="207" max="32767" attributes="0"/>
                                       <Component id="LOG" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                                      <Component id="txtcontraLOG" alignment="0" min="-2" pref="207" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -72,21 +76,16 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="47" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="57" max="-2" attributes="0"/>
-                          <Component id="labelregistro" min="-2" pref="471" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="428" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="381" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="394" max="32767" attributes="0"/>
+                  <EmptySpace pref="381" max="32767" attributes="0"/>
                   <Component id="labelregistro" min="-2" pref="78" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelusuarioLOG" min="-2" pref="35" max="-2" attributes="0"/>
@@ -100,9 +99,9 @@
                       <Component id="LOG" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnVolverLOG" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="txtcontraLOG" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="txtcontra" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,8 +162,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtcontraLOG">
-        </Component>
         <Component class="javax.swing.JButton" name="btnguardar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -198,6 +195,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVolverLOGActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="txtcontra">
         </Component>
       </SubComponents>
     </Container>

@@ -99,12 +99,6 @@ public class RepositorioArchivos implements RepositorioDatos {
         } catch (IOException e) { e.printStackTrace(); }
     }
     
-    public Usuario autenticarUsuario(String email, String password) {
-         if(email.equals("admin@test.com") && password.equals("1234")) {
-             return new Cliente("1712345678", "Administrador", email, password);
-         }
-         return null;
-    }
 
     @Override public void guardarPasajero(Pasajero p){
     }
@@ -119,4 +113,49 @@ public class RepositorioArchivos implements RepositorioDatos {
         new File(PATH_COMPRAS).delete();
         new File(PATH_PASAJES).delete();
     }
-}
+    
+   // En RepositorioArchivos.java
+
+    @Override public void guardarCliente(Cliente c) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_USUARIOS, true))) {
+                // Formato: cedula;nombre;email;password
+                String linea = String.format("%s;%s;%s;%s",
+                        c.getCedula(), c.getNombre(), c.getEmail(), c.getPassword());
+                bw.write(linea);
+                bw.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    @Override
+    public Usuario autenticarUsuario(String email, String password) {
+    // 1. Acceso de administrador estático
+        if(email.trim().equalsIgnoreCase("admin@test.com") && password.equals("1234")) {
+            return new Cliente("1712345678", "Administrador", email, password);
+        }
+
+        File archivo = new File(PATH_USUARIOS);
+        if (!archivo.exists()) return null;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH_USUARIOS))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(";");
+                if (datos.length >= 4) {
+                    // Usamos trim() para limpiar espacios en blanco accidentales
+                    String emailArchivo = datos[2].trim();
+                    String passArchivo = datos[3].trim();
+
+                    if (emailArchivo.equalsIgnoreCase(email.trim()) && passArchivo.equals(password.trim())) {
+                        return new Cliente(datos[0].trim(), datos[1].trim(), datos[2].trim(), datos[3].trim());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer usuarios: " + e.getMessage());
+        }
+        return null; 
+    }
+
+    }

@@ -4,6 +4,8 @@
  */
 package com.mycompany.orbitix.vista;
 
+import com.mycompany.orbitix.controlador.UsuarioControlador;
+import com.mycompany.orbitix.modelo.Usuario;
 import javax.swing.JFrame;
 
 /**
@@ -44,10 +46,10 @@ public class VistaLogin extends javax.swing.JFrame {
         labelIniSE = new javax.swing.JLabel();
         labelcontrasena = new javax.swing.JLabel();
         labelusuario = new javax.swing.JLabel();
-        txtcontra = new javax.swing.JTextField();
         txtusuario1 = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        txtcontra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,20 +95,21 @@ public class VistaLogin extends javax.swing.JFrame {
                     .addGroup(panelLoginLayout.createSequentialGroup()
                         .addGap(431, 431, 431)
                         .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtcontra, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelLoginLayout.createSequentialGroup()
-                                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelLoginLayout.createSequentialGroup()
-                                        .addComponent(txtusuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(51, 51, 51))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(labelcontrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(111, 111, 111)))
-                                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(txtcontra, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+                                    .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(labelcontrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(labelusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(111, 111, 111))
+                                .addGroup(panelLoginLayout.createSequentialGroup()
+                                    .addComponent(txtusuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(51, 51, 51))))
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                            .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(471, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
@@ -124,9 +127,9 @@ public class VistaLogin extends javax.swing.JFrame {
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelcontrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtcontra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,6 +153,20 @@ public class VistaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+
+       String email = txtusuario1.getText(); 
+    
+    String pass = new String(txtcontra.getPassword()); 
+
+    com.mycompany.orbitix.controlador.UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
+    com.mycompany.orbitix.modelo.Usuario user = control.login(email, pass);
+
+    if (user != null) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getEmail());
+        // Aquí puedes abrir tu siguiente ventana
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
+    }
 
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -191,7 +208,7 @@ public class VistaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel labelcontrasena;
     private javax.swing.JLabel labelusuario;
     private javax.swing.JPanel panelLogin;
-    private javax.swing.JTextField txtcontra;
+    private javax.swing.JPasswordField txtcontra;
     private javax.swing.JTextField txtusuario1;
     // End of variables declaration//GEN-END:variables
 }

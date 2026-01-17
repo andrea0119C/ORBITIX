@@ -60,26 +60,27 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="431" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtcontra" alignment="0" min="-2" pref="207" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtusuario1" min="-2" pref="207" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="txtcontra" min="-2" pref="207" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="labelcontrasena" min="-2" pref="147" max="-2" attributes="0"/>
+                                          <Component id="labelusuario" min="-2" pref="147" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="labelcontrasena" min="-2" pref="147" max="-2" attributes="0"/>
-                                              <Component id="labelusuario" min="-2" pref="147" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="btnIngresar" pref="113" max="32767" attributes="0"/>
-                                      <Component id="btnVolver" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtusuario1" min="-2" pref="207" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnIngresar" pref="113" max="32767" attributes="0"/>
+                              <Component id="btnVolver" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -104,9 +105,9 @@
                       <Component id="labelcontrasena" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnVolver" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txtcontra" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -165,8 +166,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtcontra">
-        </Component>
         <Component class="javax.swing.JTextField" name="txtusuario1">
         </Component>
         <Component class="javax.swing.JButton" name="btnIngresar">
@@ -202,6 +201,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVolverActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="txtcontra">
         </Component>
       </SubComponents>
     </Container>
