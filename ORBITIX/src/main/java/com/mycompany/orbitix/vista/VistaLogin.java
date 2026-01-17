@@ -16,9 +16,7 @@ public class VistaLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaLogin.class.getName());
 
-    /**
-     * Creates new form VentanaLogin
-     */
+    
    
     private int intentos = 0;
     
@@ -163,17 +161,13 @@ String email = txtusuario1.getText();
     com.mycompany.orbitix.modelo.Usuario user = control.login(email, pass);
 
     if (user != null) {
-        // ÉXITO: Reiniciamos intentos y damos la bienvenida
+        
         intentos = 0; 
         javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getNombre());
         
-        // Aquí abrirías tu siguiente ventana, por ejemplo:
-        // VistaMenu menu = new VistaMenu();
-        // menu.setVisible(true);
-        // this.dispose();
         
     } else {
-        // ERROR: Aumentamos el contador
+        
         intentos++;
         
         if (intentos >= 3) {
@@ -182,7 +176,7 @@ String email = txtusuario1.getText();
                 "ACCESO BLOQUEADO", 
                 javax.swing.JOptionPane.ERROR_MESSAGE);
             
-            System.exit(0); // Cierra la aplicación
+            System.exit(0); 
         } else {
             int restantes = 3 - intentos;
             javax.swing.JOptionPane.showMessageDialog(this, 
@@ -190,7 +184,7 @@ String email = txtusuario1.getText();
                 "Error de Autenticación", 
                 javax.swing.JOptionPane.WARNING_MESSAGE);
             
-            // Limpiamos el campo de clave y ponemos el foco ahí para reintentar
+            
             txtcontra.setText("");
             txtcontra.requestFocus();
         }
