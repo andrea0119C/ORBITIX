@@ -25,7 +25,10 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
      * Creates new form VistaRegistroPasajero
      */
     public VistaRegistroPasajero(java.awt.Frame parent,Vuelo vuelo, List<String> asientos, boolean modal) {
-        super(parent, modal);
+    super(parent, modal);
+    this.vuelo = vuelo;
+    this.asientos = asientos;
+    initComponents();
         initComponents();
     }
 
@@ -45,12 +48,9 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        javax.swing.JTextArea txtCedula = new javax.swing.JTextArea();
-        txtNombre = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        txtEdad = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        txtEdad = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lblInfoOrigen = new javax.swing.JLabel();
         lblInfoVuelo = new javax.swing.JLabel();
@@ -86,18 +86,6 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Cédula:");
 
-        txtCedula.setColumns(20);
-        txtCedula.setRows(5);
-        jScrollPane1.setViewportView(txtCedula);
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        txtNombre.setViewportView(jTextArea2);
-
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        txtEdad.setViewportView(jTextArea3);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -105,33 +93,31 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(txtEdad)
-                            .addComponent(txtNombre))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(82, 82, 82)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(txtEdad)
+                    .addComponent(txtCedula))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -290,14 +276,17 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                VistaRegistroPasajero dialog = new VistaRegistroPasajero(new javax.swing.JFrame(),new vuelo, new List<String> asientos, true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+         Vuelo vuelo = new Vuelo(); 
+        List<String> asientos = new ArrayList<>();
+        VistaRegistroPasajero dialog = new VistaRegistroPasajero(
+            new javax.swing.JFrame(),
+            vuelo,
+            asientos,
+            true
+        );
+
+        dialog.setVisible(true);
+                
             }
         });
     }
@@ -312,14 +301,12 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JLabel lblAsiento;
     private javax.swing.JLabel lblInfoDestino;
     private javax.swing.JLabel lblInfoOrigen;
     private javax.swing.JLabel lblInfoVuelo;
-    private javax.swing.JScrollPane txtEdad;
-    private javax.swing.JScrollPane txtNombre;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtEdad;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
