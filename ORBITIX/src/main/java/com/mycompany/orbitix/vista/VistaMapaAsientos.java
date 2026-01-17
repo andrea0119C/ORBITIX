@@ -6,28 +6,29 @@ package com.mycompany.orbitix.vista;
 import com.mycompany.orbitix.modelo.Vuelo;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author paula
  */
 
+
 public class VistaMapaAsientos extends JDialog {
-    private String asientoSeleccionado = "";
+    // CAMBIO: Ahora es una lista para soportar múltiples asientos
+    private List<String> asientosSeleccionados = new ArrayList<>();
     private Vuelo vuelo;
-    private JButton asientoBotonPresionado = null;
 
     public VistaMapaAsientos(JFrame padre, Vuelo vuelo) {
-        super(padre, "Seleccione su asiento - Orbitix", true);
+        super(padre, "Seleccione sus asientos - Orbitix", true);
         this.vuelo = vuelo;
         initComponents();
         setLocationRelativeTo(padre);
     }
 
     private void initComponents() {
-   
         int capacidad = vuelo.getAvion().getCapacidad();
- 
         int numColumnas = 6;
         int filas = (int) Math.ceil((double) capacidad / numColumnas);
         
@@ -38,25 +39,36 @@ public class VistaMapaAsientos extends JDialog {
         char[] letras = {'A', 'B', 'C', 'D', 'E', 'F'};
         int generados = 0;
 
+        // Botón de confirmar declarado antes para actualizar su texto
+        JButton btnConfirmar = new JButton("CONFIRMAR SELECCIÓN (0)");
+        btnConfirmar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnConfirmar.setBackground(new Color(153, 0, 255));
+        btnConfirmar.setForeground(Color.WHITE);
+
         for (int f = 1; f <= filas; f++) {
             for (char letra : letras) {
                 if (generados < capacidad) {
                     String nombreAsiento = letra + String.valueOf(f);
                     JButton btnAsiento = new JButton(nombreAsiento);
                     
-
                     if (!vuelo.esAsientoDisponible(nombreAsiento)) {
                         btnAsiento.setBackground(Color.RED);
                         btnAsiento.setEnabled(false);
                     } else {
                         btnAsiento.setBackground(Color.GREEN);
                         btnAsiento.addActionListener(e -> {
-                            if (asientoBotonPresionado != null) {
-                                asientoBotonPresionado.setBackground(Color.GREEN);
+                            // Lógica de selección múltiple
+                            if (asientosSeleccionados.contains(nombreAsiento)) {
+                                // Deseleccionar
+                                asientosSeleccionados.remove(nombreAsiento);
+                                btnAsiento.setBackground(Color.GREEN);
+                            } else {
+                                // Seleccionar
+                                asientosSeleccionados.add(nombreAsiento);
+                                btnAsiento.setBackground(Color.YELLOW);
                             }
-                            asientoSeleccionado = nombreAsiento;
-                            btnAsiento.setBackground(Color.YELLOW);
-                            asientoBotonPresionado = btnAsiento;
+                            // Actualizar contador en el botón inferior
+                            btnConfirmar.setText("CONFIRMAR SELECCIÓN (" + asientosSeleccionados.size() + ")");
                         });
                     }
                     panelAsientos.add(btnAsiento);
@@ -65,10 +77,9 @@ public class VistaMapaAsientos extends JDialog {
             }
         }
 
-        JButton btnConfirmar = new JButton("CONFIRMAR ASIENTO " + (asientoSeleccionado));
         btnConfirmar.addActionListener(e -> {
-            if (asientoSeleccionado.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe elegir un asiento verde.");
+            if (asientosSeleccionados.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe elegir al menos un asiento (en verde).");
             } else {
                 this.dispose();
             }
@@ -77,10 +88,11 @@ public class VistaMapaAsientos extends JDialog {
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(panelAsientos), BorderLayout.CENTER);
         this.add(btnConfirmar, BorderLayout.SOUTH);
-        this.setSize(600, 500);
+        this.setSize(700, 600); // Un poco más grande para comodidad
     }
 
-    public String getAsientoSeleccionado() {
-        return asientoSeleccionado;
+    // CAMBIO: Ahora devuelve la lista completa
+    public List<String> getAsientosSeleccionados() {
+        return asientosSeleccionados;
     }
 }

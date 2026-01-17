@@ -248,38 +248,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarVuelosActionPerformed
 
     private void btnSelecComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecComprarActionPerformed
-        int fila = tablaVuelos.getSelectedRow();
-     if (fila == -1) {
-         javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
-         return;
-     }
-
-     String codigo = tablaVuelos.getValueAt(fila, 0).toString();
-     Vuelo seleccionado = null;
-
-     for(Vuelo v : listaVuelosActuales) {
-         if(v.getCodigo().equals(codigo)) {
-             seleccionado = v;
-             break;
-         }
-     }
-
-     if (seleccionado != null) {
-         VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado);
-         mapa.setVisible(true);
-
-         String asiento = mapa.getAsientoSeleccionado();
-         if (!asiento.isEmpty()) {
-             // Aquí llamarías a tu ventana de datos de pasajero y pago
-             System.out.println("Asiento reservado: " + asiento);
-         }
-     }
-    }//GEN-LAST:event_btnSelecComprarActionPerformed
-
-    private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
-        int fila = tablaVuelos.getSelectedRow();
+int fila = tablaVuelos.getSelectedRow();
     if (fila == -1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione un vuelo de la tabla.");
+        javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
         return;
     }
 
@@ -297,16 +268,29 @@ public class VistaPrincipal extends javax.swing.JFrame {
         VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado);
         mapa.setVisible(true);
 
-        String asiento = mapa.getAsientoSeleccionado();
-        if (asiento != null && !asiento.isEmpty()) {
-            // PRÓXIMO PASO:
-            // Abrir ventana para ingresar Nombre y Cédula del pasajero
-            // Por ahora lo imprimimos para probar:
-            javax.swing.JOptionPane.showMessageDialog(this, "Asiento " + asiento + " reservado.\nProcedamos al registro del pasajero.");
+        // OBTENEMOS LA LISTA DE ASIENTOS SELECCIONADOS
+        java.util.List<String> asientos = mapa.getAsientosSeleccionados();
+        
+        if (asientos != null && !asientos.isEmpty()) {
+            // Mensaje de confirmación con la cantidad
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Has seleccionado " + asientos.size() + " asiento(s): " + String.join(", ", asientos) + 
+                "\nProcedamos al registro de los pasajeros.");
             
-            // Aquí llamarías a: new VistaRegistroPasajero(this, seleccionado, asiento).setVisible(true);
+            // --- PRÓXIMO PASO ---
+            // Aquí llamarías a la nueva ventana que crearemos:
+            // VistaRegistroPasajeros registro = new VistaRegistroPasajeros(this, seleccionado, asientos);
+            // registro.setVisible(true);
+            
+            System.out.println("Iniciando registro para: " + asientos);
         }
     }
+    }//GEN-LAST:event_btnSelecComprarActionPerformed
+
+    private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
+        VistaHistorialCompras historial = new VistaHistorialCompras(this, this.usuarioLogueado);
+        historial.setVisible(true);
+
     }//GEN-LAST:event_btnComprasActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
