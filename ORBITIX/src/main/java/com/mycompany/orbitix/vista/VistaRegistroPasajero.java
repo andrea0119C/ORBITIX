@@ -8,7 +8,6 @@ import com.mycompany.orbitix.modelo.*;
 import com.mycompany.orbitix.controlador.PasajeControlador;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.JFrame;
 
 /**
  *
@@ -28,17 +27,25 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     super(parent, modal);
     this.vuelo = vuelo;
     this.asientos = asientos;
+
+    if (asientos == null || asientos.isEmpty()) {
+        JOptionPane.showMessageDialog(
+            parent,
+            "Error: no se recibieron asientos seleccionados",
+            "Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+        dispose();
+        return;
+    }
+
     initComponents();
-        initComponents();
-        
     configurarDiseno();
     cargarDatosVuelo();
     actualizarInterfaz();
     }
     
     private void configurarDiseno() {
-        // Hacer transparentes los paneles para ver el fondo
-        panelPrincipal.setOpaque(true); // O false según tu diseño de fondo
         panelPrincipal.setOpaque(false);
         jPanel2.setOpaque(false);
         setLocationRelativeTo(null); // Centrar en pantalla
@@ -51,22 +58,30 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         }
     }
     private void actualizarInterfaz() {
-        // Mostrar el asiento que se está registrando actualmente
-        lblAsiento.setText("Asiento: " + asientos.get(indiceActual));
-        
-        // Limpiar campos para el siguiente pasajero
-        txtNombre.setText("");
-        txtCedula.setText("");
-        txtEdad.setText("");
 
-        // Control de botones
-        btnAnterior.setEnabled(indiceActual > 0);
-        if (indiceActual == asientos.size() - 1) {
-            btnSiguiente.setText("FINALIZAR COMPRA");
-        } else {
-            btnSiguiente.setText("SIGUIENTE");
-        }
+    if (asientos == null || asientos.isEmpty()) {
+        lblAsiento.setText("No hay asientos seleccionados");
+        btnSiguiente.setEnabled(false);
+        btnAnterior.setEnabled(false);
+        return;
     }
+
+    lblAsiento.setText("Asiento: " + asientos.get(indiceActual));
+
+    txtNombre.setText("");
+    txtCedula.setText("");
+    txtEdad.setText("");
+
+    btnAnterior.setEnabled(indiceActual > 0);
+
+    if (indiceActual == asientos.size() - 1) {
+        btnSiguiente.setText("FINALIZAR COMPRA");
+    } else {
+        btnSiguiente.setText("SIGUIENTE");
+    }
+}
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -223,40 +238,43 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(627, 627, 627)
-                        .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(426, 426, 426)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(255, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
-                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(501, 501, 501))
+                        .addGap(33, 33, 33)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(157, 157, 157)
+                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(jLabel1))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(388, 388, 388)
+                        .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(485, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblAsiento)
-                .addGap(54, 54, 54)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(248, Short.MAX_VALUE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(161, 161, 161))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -340,7 +358,7 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Error al guardar los pasajes.");
         }
-    }
+    
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     /**
@@ -402,3 +420,4 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
+
