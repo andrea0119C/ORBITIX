@@ -7,7 +7,6 @@ package com.mycompany.orbitix.datos;
 import com.mycompany.orbitix.modelo.*;
 import java.io.*;
 import java.util.*;
-import java.text.SimpleDateFormat;
 
 public class RepositorioArchivos implements RepositorioDatos {
 
@@ -57,71 +56,48 @@ public class RepositorioArchivos implements RepositorioDatos {
         } catch (IOException e) { e.printStackTrace(); }
     }
 
- 
-
     @Override
     public List<Vuelo> cargarVuelos() {
         List<Vuelo> vuelos = new ArrayList<>();
-      
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_VUELOS))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] d = linea.split(";");
-
-            
-                if (d.length >= 8) {
-                    try {
-                      
-                        Ruta r = new Ruta(d[1], d[2], Double.parseDouble(d[3].replace(",", ".")));
-                        Avion a = new Avion(d[4], Integer.parseInt(d[5]), "REG-X");
-
-                      
-                        Date fechaReal = sdf.parse(d[6]);
-
-                       
-                        double precioLeido = Double.parseDouble(d[7].replace(",", "."));
-
-               
-                        Vuelo v = new Vuelo(d[0], fechaReal, "12:00", r, a, precioLeido);
-
-                        vuelos.add(v);
-                    } catch (Exception ex) {
-                        System.out.println("Error procesando línea: " + linea + " - " + ex.getMessage());
-                    }
+                if (d.length >= 6) {
+                    Ruta r = new Ruta(d[1], d[2], Double.parseDouble(d[3].replace(",", ".")));
+                    Avion a = new Avion(d[4], Integer.parseInt(d[5]), "REG-X");
+                    Vuelo v = new Vuelo(d[0], new Date(), "12:00", r, a);
+                    vuelos.add(v);
                 }
             }
-        } catch (IOException e) { 
-            System.out.println("Error cargando vuelos: " + e.getMessage()); 
-        }
-
+        } catch (IOException e) { System.out.println("Error cargando vuelos: " + e.getMessage()); }
         cargarAsientosOcupados(vuelos);
+        
         return vuelos;
     }
 
-        private void cargarAsientosOcupados(List<Vuelo> vuelos) {
-            File archivo = new File(PATH_PASAJES);
-            if (!archivo.exists()) return;
+    private void cargarAsientosOcupados(List<Vuelo> vuelos) {
+        File archivo = new File(PATH_PASAJES);
+        if (!archivo.exists()) return;
 
-            try (BufferedReader br = new BufferedReader(new FileReader(PATH_PASAJES))) {
-                String linea;
-                while ((linea = br.readLine()) != null) {
-                    String[] d = linea.split(";");
-                    if (d.length >= 4) {
-                        String codigoVuelo = d[2];
-                        String asiento = d[3];
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH_PASAJES))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] d = linea.split(";");
+                if (d.length >= 4) {
+                    String codigoVuelo = d[2];
+                    String asiento = d[3];
 
-                        for (Vuelo v : vuelos) {
-                            if (v.getCodigo().equals(codigoVuelo)) {
-                                v.ocuparAsiento(asiento);
-                                break;
-                            }
+                    for (Vuelo v : vuelos) {
+                        if (v.getCodigo().equals(codigoVuelo)) {
+                            v.ocuparAsiento(asiento);
+                            break;
                         }
                     }
                 }
-            } catch (IOException e) { e.printStackTrace(); }
-        }
+            }
+        } catch (IOException e) { e.printStackTrace(); }
+    }
     
 
     @Override public void guardarPasajero(Pasajero p){

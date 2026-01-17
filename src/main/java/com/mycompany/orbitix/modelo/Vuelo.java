@@ -16,22 +16,22 @@ public class Vuelo {
     private String hora;
     private Ruta ruta;
     private Avion avion;
-    private double precio; 
     private Set<String> asientosOcupados; 
 
-    public Vuelo(String codigo, Date fecha, String hora, Ruta ruta, Avion avion, double precio) {
+    public Vuelo(String codigo, Date fecha, String hora, Ruta ruta, Avion avion) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.hora = hora;
         this.ruta = ruta;
         this.avion = avion;
-        this.precio = precio; 
         this.asientosOcupados = new HashSet<>();
     }
+
 
     public boolean esAsientoDisponible(String numeroAsiento) {
         return !asientosOcupados.contains(numeroAsiento);
     }
+
 
     public void ocuparAsiento(String numeroAsiento) {
         if (asientosOcupados.size() < avion.getCapacidad()) {
@@ -39,13 +39,13 @@ public class Vuelo {
         }
     }
 
-    // Getters
+
     public String getCodigo() { return codigo; }
     public Date getFecha() { return fecha; }
     public String getHora() { return hora; }
     public Ruta getRuta() { return ruta; }
     public Avion getAvion() { return avion; }
-    public double getPrecio() { return precio; } 
+    
 
     public int getAsientosDisponibles() {
         return avion.getCapacidad() - asientosOcupados.size();
