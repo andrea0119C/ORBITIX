@@ -27,6 +27,9 @@ public class Vuelo {
         this.precio = precio; 
         this.asientosOcupados = new HashSet<>();
     }
+    public Vuelo() {
+    }
+
 
     public boolean esAsientoDisponible(String numeroAsiento) {
         return !asientosOcupados.contains(numeroAsiento);

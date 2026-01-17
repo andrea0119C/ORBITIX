@@ -18,15 +18,13 @@ public class VistaHistorialCompras extends javax.swing.JDialog {
      * Creates new form VistaHistorialCompras
      */
 public VistaHistorialCompras(java.awt.Frame parent, com.mycompany.orbitix.modelo.Usuario usuario) {
-    // Pasamos 'true' directamente al super para que sea modal
-    super(parent, true); 
     
-    // Ahora 'usuario' sí existe como parámetro, por lo que ya no dará error:
+    super(parent, true); 
+
     this.usuarioLogueado = usuario;
 
     initComponents(); 
 
-    // Tu lógica de fondo...
     Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
     fondo.setLayout(new java.awt.BorderLayout());
 
@@ -143,7 +141,6 @@ public VistaHistorialCompras(java.awt.Frame parent, com.mycompany.orbitix.modelo
      */
     public static void main(String args[]) {
    java.awt.EventQueue.invokeLater(() -> {
-        // Pasamos null como usuario para la prueba del main
         VistaHistorialCompras dialog = new VistaHistorialCompras(new javax.swing.JFrame(), null);
         dialog.setVisible(true);
     });

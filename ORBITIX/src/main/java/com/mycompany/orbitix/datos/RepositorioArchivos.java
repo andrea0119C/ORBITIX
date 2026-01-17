@@ -15,6 +15,7 @@ public class RepositorioArchivos implements RepositorioDatos {
     private final String PATH_COMPRAS = "compras.txt";
     private final String PATH_PASAJES = "pasajes.txt"; 
     private final String PATH_USUARIOS = "usuarios.txt"; 
+    private final String PATH_PASAJEROS = "pasajeros.txt"; 
 
         @Override
         public void guardarVuelo(Vuelo v) {
@@ -130,8 +131,31 @@ public class RepositorioArchivos implements RepositorioDatos {
         }
     
 
-    @Override public void guardarPasajero(Pasajero p){
+    @Override 
+public void guardarPasajero(Pasajero p) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_PASAJEROS, true))) {
+        String linea = String.format("%s;%s;%s;%s;%s;%d",
+                p.getCedula(), p.getNombre(), p.getApellido(), 
+                p.getTelefono(), p.getEmail(), p.getEdad());
+        bw.write(linea);
+        bw.newLine();
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
+
+public void guardarPasaje(Pasaje p) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_PASAJES, true))) {
+        String linea = String.format("%s;%.2f;%s;%s;%s",
+                p.getCodigo(), p.getPrecio(), p.getVuelo().getCodigo(), 
+                p.getAsiento(), p.getPasajero().getCedula());
+        bw.write(linea);
+        bw.newLine();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
     @Override public List<Pasajero> cargarPasajeros(){
         return new ArrayList<>();
     }
@@ -144,11 +168,10 @@ public class RepositorioArchivos implements RepositorioDatos {
         new File(PATH_PASAJES).delete();
     }
     
-   // En RepositorioArchivos.java
+
 
     @Override public void guardarCliente(Cliente c) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_USUARIOS, true))) {
-                // Formato: cedula;nombre;email;password
                 String linea = String.format("%s;%s;%s;%s",
                         c.getCedula(), c.getNombre(), c.getEmail(), c.getPassword());
                 bw.write(linea);
@@ -160,7 +183,6 @@ public class RepositorioArchivos implements RepositorioDatos {
 
     @Override
     public Usuario autenticarUsuario(String email, String password) {
-    // 1. Acceso de administrador estático
         if(email.trim().equalsIgnoreCase("admin@test.com") && password.equals("1234")) {
             return new Cliente("1712345678", "Administrador", email, password);
         }
@@ -173,7 +195,6 @@ public class RepositorioArchivos implements RepositorioDatos {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(";");
                 if (datos.length >= 4) {
-                    // Usamos trim() para limpiar espacios en blanco accidentales
                     String emailArchivo = datos[2].trim();
                     String passArchivo = datos[3].trim();
 
@@ -188,4 +209,4 @@ public class RepositorioArchivos implements RepositorioDatos {
         return null; 
     }
 
-    }
+}
