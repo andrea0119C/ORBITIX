@@ -5,6 +5,7 @@
 package com.mycompany.orbitix.vista;
 
 import com.mycompany.orbitix.modelo.Vuelo;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
  */
 public class VistaPrincipal extends javax.swing.JFrame {
     
+    private com.mycompany.orbitix.modelo.Usuario usuarioLogueado;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPrincipal.class.getName());
     private java.util.List<Vuelo> listaVuelosActuales; 
     private com.mycompany.orbitix.datos.RepositorioArchivos repo = new com.mycompany.orbitix.datos.RepositorioArchivos();
@@ -248,48 +250,38 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarVuelosActionPerformed
 
     private void btnSelecComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecComprarActionPerformed
-int fila = tablaVuelos.getSelectedRow();
-    if (fila == -1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
-        return;
-    }
-
-    String codigo = tablaVuelos.getValueAt(fila, 0).toString();
-    Vuelo seleccionado = null;
-
-    for(Vuelo v : listaVuelosActuales) {
-        if(v.getCodigo().equals(codigo)) {
-            seleccionado = v;
-            break;
+        int fila = tablaVuelos.getSelectedRow();
+        if (fila == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
+            return;
         }
-    }
 
-    if (seleccionado != null) {
-        VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado);
-        mapa.setVisible(true);
-
-        // OBTENEMOS LA LISTA DE ASIENTOS SELECCIONADOS
-        java.util.List<String> asientos = mapa.getAsientosSeleccionados();
-        
-        if (asientos != null && !asientos.isEmpty()) {
-            // Mensaje de confirmación con la cantidad
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "Has seleccionado " + asientos.size() + " asiento(s): " + String.join(", ", asientos) + 
-                "\nProcedamos al registro de los pasajeros.");
-            
-            // --- PRÓXIMO PASO ---
-            // Aquí llamarías a la nueva ventana que crearemos:
-            // VistaRegistroPasajeros registro = new VistaRegistroPasajeros(this, seleccionado, asientos);
-            // registro.setVisible(true);
-            
-            System.out.println("Iniciando registro para: " + asientos);
+        String codigo = tablaVuelos.getValueAt(fila, 0).toString();
+        Vuelo seleccionado = null;
+        for(Vuelo v : listaVuelosActuales) {
+            if(v.getCodigo().equals(codigo)) {
+                seleccionado = v;
+                break;
+            }
         }
-    }
+
+        if (seleccionado != null) {
+            VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado);
+            mapa.setVisible(true);
+
+            List<String> asientos = mapa.getAsientosSeleccionados();
+
+            if (asientos != null && !asientos.isEmpty()) {
+                // AHORA LLAMAMOS A LA VENTANA DE REGISTRO Y PAGO
+                //VistaPasajerosYPago ventanaPago = new VistaPasajerosYPago(this, seleccionado, asientos, usuarioLogueado);
+                //ventanaPago.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_btnSelecComprarActionPerformed
 
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
-        VistaHistorialCompras historial = new VistaHistorialCompras(this, this.usuarioLogueado);
-        historial.setVisible(true);
+    VistaHistorialCompras historial = new VistaHistorialCompras(this, this.usuarioLogueado);
+    historial.setVisible(true); 
 
     }//GEN-LAST:event_btnComprasActionPerformed
 

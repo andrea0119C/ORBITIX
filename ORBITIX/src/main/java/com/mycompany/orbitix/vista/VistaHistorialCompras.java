@@ -13,21 +13,28 @@ import javax.swing.JFrame;
 public class VistaHistorialCompras extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaHistorialCompras.class.getName());
-
+    private com.mycompany.orbitix.modelo.Usuario usuarioLogueado;
     /**
      * Creates new form VistaHistorialCompras
      */
-public VistaHistorialCompras(java.awt.Frame parent, boolean modal) {
-    super(parent, modal);
+public VistaHistorialCompras(java.awt.Frame parent, com.mycompany.orbitix.modelo.Usuario usuario) {
+    // Pasamos 'true' directamente al super para que sea modal
+    super(parent, true); 
+    
+    // Ahora 'usuario' sí existe como parámetro, por lo que ya no dará error:
+    this.usuarioLogueado = usuario;
 
     initComponents(); 
+
+    // Tu lógica de fondo...
     Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
     fondo.setLayout(new java.awt.BorderLayout());
+
     if (panelHistorial != null) {
         panelHistorial.setOpaque(false); 
         fondo.add(panelHistorial, java.awt.BorderLayout.CENTER);
     }
-    
+
     setContentPane(fondo);
     this.setSize(1000, 700); 
     this.setLocationRelativeTo(null); 
@@ -135,37 +142,11 @@ public VistaHistorialCompras(java.awt.Frame parent, boolean modal) {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                VistaHistorialCompras dialog = new VistaHistorialCompras(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+   java.awt.EventQueue.invokeLater(() -> {
+        // Pasamos null como usuario para la prueba del main
+        VistaHistorialCompras dialog = new VistaHistorialCompras(new javax.swing.JFrame(), null);
+        dialog.setVisible(true);
+    });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -175,4 +156,16 @@ public VistaHistorialCompras(java.awt.Frame parent, boolean modal) {
     private javax.swing.JPanel panelHistorial;
     private javax.swing.JTable tablaHistorial;
     // End of variables declaration//GEN-END:variables
+
+    private void configurarTabla() {
+    javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
+        new Object [][] {},
+        new String [] { "Fecha", "Vuelo", "Asiento", "Pasajero", "Precio" }
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) { return false; }
+    };
+    tablaHistorial.setModel(modelo);
+}
+
 }
