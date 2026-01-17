@@ -79,19 +79,30 @@ public class VistaMapaAsientos extends JDialog {
 
         btnConfirmar.addActionListener(e -> {
             if (asientosSeleccionados.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe elegir al menos un asiento (en verde).");
-            } else {
-                this.dispose();
-            }
-        });
+            JOptionPane.showMessageDialog(
+                this,
+                "Debe elegir al menos un asiento (en verde)."
+            );
+        } else {
+        
+        VistaRegistroPasajero vistaRegistrar = new VistaRegistroPasajero(
+            (Frame) SwingUtilities.getWindowAncestor(this), 
+            vuelo,
+            asientosSeleccionados,
+            true 
+        );
+
+        this.dispose();           
+        vistaRegistrar.setVisible(true); 
+    }
+});
 
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(panelAsientos), BorderLayout.CENTER);
         this.add(btnConfirmar, BorderLayout.SOUTH);
-        this.setSize(700, 600); // Un poco más grande para comodidad
+        this.setSize(700, 600); 
     }
 
-    // CAMBIO: Ahora devuelve la lista completa
     public List<String> getAsientosSeleccionados() {
         return asientosSeleccionados;
     }
