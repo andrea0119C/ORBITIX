@@ -12,19 +12,40 @@ import java.util.List;
  *
  * @author karla
  */
-public class PasajeControlador {
-    private RepositorioArchivos repo = new RepositorioArchivos();
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
-    public boolean registrarVentaTotal(List<Pasaje> listaPasajes) {
-        try {
-            for (Pasaje p : listaPasajes) {
-                repo.guardarPasajero(p.getPasajero());
-                repo.guardarPasaje(p);
+public class PasajeControlador {
+
+    private static final String ARCHIVO = "pasajeros.txt";
+
+    public boolean registrarVentaTotal(List<Pasaje> pasajes) {
+        // 'true' en FileWriter habilita el modo "append" (no borra lo anterior)
+        try (FileWriter fw = new FileWriter(ARCHIVO, true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+
+            for (Pasaje p : pasajes) {
+                // Estructura de la línea: Cedula;Nombre Completo;Edad;Vuelo;Asiento;Equipaje;PrecioBase;CostoExtra
+                StringBuilder sb = new StringBuilder();
+                sb.append(p.getPasajero().getCedula()).append(";");
+                sb.append(p.getPasajero().getNombre()).append(" ").append(p.getPasajero().getApellido()).append(";");
+                sb.append(p.getPasajero().getEdad()).append(";");
+                sb.append(p.getVuelo().getCodigo()).append(";");
+                sb.append(p.getAsiento()).append(";");
+                sb.append(p.getEquipaje().getTipo()).append(";");
+                sb.append(p.getPrecio()).append(";");
+                sb.append(p.getEquipaje().getCostoExtra());
+
+                out.println(sb.toString());
             }
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.err.println("Error al escribir en pasajeros.txt: " + e.getMessage());
             return false;
         }
     }
 }
-

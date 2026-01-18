@@ -11,3 +11,4 @@
 1850341627;Paola;Pacheco;0998618483;paopacheco@gmail.com;19
 15;P;P;098;pao;12
 1243567809;Nicol;Cumbal;0986319159;andrea01@gmail.com;19
+1751307727;Karla Guaña;51;V008;C8;ARTICULO_PERSONAL;185.0;0.0
