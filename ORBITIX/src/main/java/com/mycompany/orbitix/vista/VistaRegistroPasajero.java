@@ -10,57 +10,66 @@ import java.util.*;
 import javax.swing.*;
 
 /**
- *
- * @author karla
+ * Vista de Registro de Pasajeros - Orbitix
+ * @author karla (Modificado)
  */
 public class VistaRegistroPasajero extends javax.swing.JDialog {
+
     private List<String> asientos;
     private Vuelo vuelo;
     private int indiceActual = 0;
     private List<Pasaje> pasajesRegistrados = new ArrayList<>();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaRegistroPasajero.class.getName());
 
-    /**
-     * Creates new form VistaRegistroPasajero
-     */
-    public VistaRegistroPasajero(java.awt.Frame parent,Vuelo vuelo, List<String> asientos, boolean modal) {
-    super(parent, modal);
-    this.vuelo = vuelo;
-    this.asientos = asientos;
-    Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
-    fondo.setLayout(new java.awt.BorderLayout());
+    public VistaRegistroPasajero(java.awt.Frame parent, Vuelo vuelo, List<String> asientos, boolean modal) {
+        super(parent, modal);
+        this.vuelo = vuelo;
+        this.asientos = asientos;
 
-    if (panelPrincipal != null) {
-        panelPrincipal.setOpaque(false); 
-        fondo.add(panelPrincipal, java.awt.BorderLayout.CENTER);
+        // Configuración de fondo
+        Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
+        fondo.setLayout(new java.awt.BorderLayout());
+
+        initComponents(); // Inicializa componentes de NetBeans
+        
+        // Personalización post-init
+        configurarComboBox();
+        configurarDiseno();
+        
+        if (panelPrincipal != null) {
+            panelPrincipal.setOpaque(false);
+            fondo.add(panelPrincipal, java.awt.BorderLayout.CENTER);
+        }
+
+        setContentPane(fondo);
+        this.setSize(1000, 700);
+        this.setLocationRelativeTo(null);
+
+        if (asientos == null || asientos.isEmpty()) {
+            JOptionPane.showMessageDialog(parent, "Error: no se recibieron asientos seleccionados", "Error", JOptionPane.ERROR_MESSAGE);
+            dispose();
+            return;
+        }
+
+        cargarDatosVuelo();
+        actualizarInterfaz();
     }
 
-    setContentPane(fondo);
-    this.setSize(1000, 700); 
-    this.setLocationRelativeTo(null); 
-
-    if (asientos == null || asientos.isEmpty()) {
-        JOptionPane.showMessageDialog(
-            parent,
-            "Error: no se recibieron asientos seleccionados",
-            "Error",
-            JOptionPane.ERROR_MESSAGE
-        );
-        dispose();
-        return;
+    private void configurarComboBox() {
+        // Configura las opciones solicitadas para el equipaje
+        CBEquipaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
+            "Artículo personal",
+            "Maleta de mano",
+            "Maleta de Bodega"
+        }));
     }
 
-    initComponents();
-    configurarDiseno();
-    cargarDatosVuelo();
-    actualizarInterfaz();
-    }
-    
     private void configurarDiseno() {
         panelPrincipal.setOpaque(false);
         jPanel2.setOpaque(false);
-        setLocationRelativeTo(null); // Centrar en pantalla
+        jPanel3.setOpaque(false);
     }
+
     private void cargarDatosVuelo() {
         if (vuelo != null && vuelo.getRuta() != null) {
             lblInfoVuelo.setText("Vuelo: " + vuelo.getCodigo());
@@ -68,29 +77,38 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
             lblInfoDestino.setText("Destino: " + vuelo.getRuta().getDestino());
         }
     }
+
     private void actualizarInterfaz() {
+        if (asientos == null || asientos.isEmpty()) {
+            lblAsiento.setText("No hay asientos");
+            return;
+        }
 
-    if (asientos == null || asientos.isEmpty()) {
-        lblAsiento.setText("No hay asientos seleccionados");
-        btnSiguiente.setEnabled(false);
-        btnAnterior.setEnabled(false);
-        return;
+        lblAsiento.setText("Asiento: " + asientos.get(indiceActual));
+
+        // Limpiar campos para el nuevo registro
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtCedula.setText("");
+        txtTelefono.setText("");
+        txtEmail.setText("");
+        txtEdad.setText("");
+        CBEquipaje.setSelectedIndex(0);
+
+        btnAnterior.setEnabled(indiceActual > 0);
+        btnSiguiente.setText(indiceActual == asientos.size() - 1 ? "FINALIZAR COMPRA" : "SIGUIENTE");
     }
 
-    lblAsiento.setText("Asiento: " + asientos.get(indiceActual));
-
-    txtNombre.setText("");
-    txtCedula.setText("");
-    txtEdad.setText("");
-
-    btnAnterior.setEnabled(indiceActual > 0);
-
-    if (indiceActual == asientos.size() - 1) {
-        btnSiguiente.setText("FINALIZAR COMPRA");
-    } else {
-        btnSiguiente.setText("SIGUIENTE");
+    private void finalizarVenta() {
+        PasajeControlador control = new PasajeControlador();
+        boolean exito = control.registrarVentaTotal(pasajesRegistrados);
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "¡Registro exitoso de todos los pasajeros!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar los pasajes.");
+        }
     }
-}
 
     
 
@@ -110,9 +128,17 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtEdad = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
         txtCedula = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtEdad = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        CBEquipaje = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         lblInfoOrigen = new javax.swing.JLabel();
         lblInfoVuelo = new javax.swing.JLabel();
@@ -123,6 +149,7 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelPrincipal.setBackground(new java.awt.Color(153, 0, 153));
+        panelPrincipal.setToolTipText("");
         panelPrincipal.setPreferredSize(new java.awt.Dimension(1360, 677));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -142,11 +169,37 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Edad:");
+        jLabel3.setText("Teléfono:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Cédula:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Apellido:");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Email:");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Edad:");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Equipaje:");
+
+        CBEquipaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBEquipaje.setSelectedItem(CBEquipaje);
+        CBEquipaje.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        CBEquipaje.setDoubleBuffered(true);
+        CBEquipaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBEquipajeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -155,32 +208,64 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                    .addComponent(txtEdad)
-                    .addComponent(txtCedula))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(txtNombre)
+                            .addComponent(txtApellido)
+                            .addComponent(txtCedula)
+                            .addComponent(txtTelefono)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(CBEquipaje, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(65, 65, 65))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel6)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(jLabel7)
+                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(CBEquipaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -208,7 +293,7 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
                     .addComponent(lblInfoDestino, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                     .addComponent(lblInfoVuelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblInfoOrigen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +304,7 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
                 .addComponent(lblInfoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblInfoDestino)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnAnterior.setBackground(new java.awt.Color(153, 0, 255));
@@ -249,21 +334,22 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(360, 360, 360)
                         .addComponent(jLabel1))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(547, 547, 547)
-                        .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(106, 106, 106)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(93, 93, 93)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(291, Short.MAX_VALUE))
+                        .addGap(533, 533, 533)
+                        .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(315, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,15 +359,14 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAsiento)
                 .addGap(18, 18, 18)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -309,42 +394,46 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         if (indiceActual > 0) {
             indiceActual--;
             actualizarInterfaz();
-            
-            // Recuperar datos del pasajero anterior si ya se escribió
             Pasaje p = pasajesRegistrados.get(indiceActual);
             txtNombre.setText(p.getPasajero().getNombre());
+            txtApellido.setText(p.getPasajero().getApellido());
             txtCedula.setText(p.getPasajero().getCedula());
+            txtTelefono.setText(p.getPasajero().getTelefono());
+            txtEmail.setText(p.getPasajero().getEmail());
             txtEdad.setText(String.valueOf(p.getPasajero().getEdad()));
+            CBEquipaje.setSelectedItem(p.getTipoEquipaje());
         }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
         try {
+            // Captura de TODOS los datos
             String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
             String cedula = txtCedula.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String email = txtEmail.getText().trim();
             String edadStr = txtEdad.getText().trim();
+            String tipoEquipaje = CBEquipaje.getSelectedItem().toString();
 
-            if (nombre.isEmpty() || cedula.isEmpty() || edadStr.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || edadStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete los campos obligatorios.");
                 return;
             }
 
             int edad = Integer.parseInt(edadStr);
-            Pasajero pasajero = new Pasajero(cedula, nombre, "", "", "", edad);
+            Pasajero pasajero = new Pasajero(cedula, nombre, apellido, telefono, email, edad);
 
-            // Crear el objeto pasaje
-            String codigoTkt = "TKT-" + System.currentTimeMillis();
-            Pasaje p = new Pasaje(codigoTkt, vuelo.getPrecio(), asientos.get(indiceActual), null, pasajero, vuelo);
+            String codigoTkt = "TKT-" + System.currentTimeMillis() + "-" + (indiceActual + 1);
+            Pasaje p = new Pasaje(codigoTkt, vuelo.getPrecio(), asientos.get(indiceActual), tipoEquipaje, pasajero, vuelo);
 
-            // Guardar en la lista temporal
             if (indiceActual < pasajesRegistrados.size()) {
                 pasajesRegistrados.set(indiceActual, p);
             } else {
                 pasajesRegistrados.add(p);
             }
 
-            // Navegación
             if (indiceActual < asientos.size() - 1) {
                 indiceActual++;
                 actualizarInterfaz();
@@ -354,19 +443,17 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La edad debe ser un número válido.");
         }
-    }
-    private void finalizarVenta() {
-        PasajeControlador control = new PasajeControlador();
-        boolean exito = control.registrarVentaTotal(pasajesRegistrados);
-        
-        if (exito) {
-            JOptionPane.showMessageDialog(this, "¡Registro exitoso!");
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al guardar los pasajes.");
-        }
     
     }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void CBEquipajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBEquipajeActionPerformed
+        // TODO add your handling code here:
+        CBEquipaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
+        "Artículo personal", 
+        "Maleta de mano", 
+        "Maleta de Bodega" 
+        }));
+    }//GEN-LAST:event_CBEquipajeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,12 +496,17 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CBEquipaje;
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAsiento;
@@ -422,9 +514,12 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     private javax.swing.JLabel lblInfoOrigen;
     private javax.swing.JLabel lblInfoVuelo;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtEdad;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
 

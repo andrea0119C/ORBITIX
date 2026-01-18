@@ -7,9 +7,9 @@ package com.mycompany.orbitix.modelo;
 public class Pasaje {
     private String codigo;
     private double precio;
-    private String asiento; // Ej: "12A"
+    private String asiento; 
     private ClaseAsiento clase;
-    private Pasajero pasajero; // Datos de la persona que se sienta aquí
+    private Pasajero pasajero;
     private Vuelo vuelo;
     
     public Pasaje(String codigo, double precio, String asiento, ClaseAsiento clase, Pasajero pasajero, Vuelo vuelo) {

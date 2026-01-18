@@ -10,12 +10,10 @@ package com.mycompany.orbitix.modelo;
  */
 public class Equipaje {
     private TipoEquipaje tipo;
-    private double pesoKg;
     private double costoExtra;
 
-    public Equipaje(TipoEquipaje tipo, double pesoKg) {
+    public Equipaje(TipoEquipaje tipo) {
         this.tipo = tipo;
-        this.pesoKg = pesoKg;
         this.costoExtra = calcularCostoExtra();
     }
 
@@ -36,9 +34,6 @@ public class Equipaje {
         return tipo;
     }
 
-    public double getPesoKg() {
-        return pesoKg;
-    }
 
     public double getCostoExtra() {
         return costoExtra;
