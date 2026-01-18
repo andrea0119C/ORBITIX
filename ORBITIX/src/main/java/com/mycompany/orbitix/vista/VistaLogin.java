@@ -21,18 +21,18 @@ public class VistaLogin extends javax.swing.JFrame {
     private int intentos = 0;
     
     public VistaLogin() {
-    initComponents();
+        initComponents();
 
-    Fondo fondo = new Fondo("/recursos/fondo_login_orbitix.png");
-    fondo.setLayout(new java.awt.BorderLayout());
-    setContentPane(fondo);
+        Fondo fondo = new Fondo("/recursos/fondo_login_orbitix.png");
+        fondo.setLayout(new java.awt.BorderLayout());
+        setContentPane(fondo);
 
-    panelLogin.setOpaque(false); 
-    fondo.add(panelLogin, java.awt.BorderLayout.CENTER);
+        panelLogin.setOpaque(false); 
+        fondo.add(panelLogin, java.awt.BorderLayout.CENTER);
 
-    setExtendedState(JFrame.MAXIMIZED_BOTH);
-    setLocationRelativeTo(null);
-}
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -154,12 +154,12 @@ public class VistaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-    String email = txtusuario1.getText(); 
-    String pass = new String(txtcontra.getPassword()); 
+        String email = txtusuario1.getText(); 
+        String pass = new String(txtcontra.getPassword()); 
 
-    UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
-    // 'user' contiene toda la información del usuario que inició sesión
-    Usuario user = control.login(email, pass);
+        UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
+        // 'user' contiene toda la información del usuario que inició sesión
+        Usuario user = control.login(email, pass);
 
     if (user != null) {
         intentos = 0; 

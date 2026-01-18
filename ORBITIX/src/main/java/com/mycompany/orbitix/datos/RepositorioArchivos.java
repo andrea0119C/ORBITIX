@@ -242,14 +242,12 @@ public Usuario buscarUsuarioPorCedula(String cedula) {
 
     @Override
     public Vuelo buscarVueloPorCodigo(String codigoVuelo) {
-    try (BufferedReader br = new BufferedReader(new FileReader("vuelos.txt"))) { // Ajusta el nombre de tu archivo
+    try (BufferedReader br = new BufferedReader(new FileReader("vuelos.txt"))) { 
         String linea;
         while ((linea = br.readLine()) != null) {
             String[] d = linea.split(";");
             if (d[0].equals(codigoVuelo)) {
-                // Aquí reconstruyes el vuelo según tus constructores de Vuelo.
-                // Ejemplo: return new Vuelo(d[0], d[1], d[2], Double.parseDouble(d[3]));
-                // Debes adaptarlo a los atributos de tu clase Vuelo
+
             }
         }
     } catch (IOException e) {

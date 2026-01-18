@@ -42,12 +42,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
     
     public VistaPrincipal(com.mycompany.orbitix.modelo.Usuario usuario) {
-    this(); // Llama al constructor base para inicializar componentes
-    this.usuarioLogueado = usuario;
-    if (usuario != null) {
-        labelsaludo.setText("Hola, " + usuario.getNombre());
+        this(); // Llama al constructor base para inicializar componentes
+        this.usuarioLogueado = usuario;
+        if (usuario != null) {
+            labelsaludo.setText("Hola, " + usuario.getNombre());
+        }
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -26,17 +26,17 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     return texto != null && texto.matches("^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+$");
 }
 
-private boolean esNumero10Digitos(String texto) {
-    return texto != null && texto.matches("^\\d{10}$");
-}
+    private boolean esNumero10Digitos(String texto) {
+        return texto != null && texto.matches("^\\d{10}$");
+    }
 
-private boolean esEdadValida(String texto) {
-    return texto != null && texto.matches("^\\d+$");
-}
+    private boolean esEdadValida(String texto) {
+        return texto != null && texto.matches("^\\d+$");
+    }
 
-private boolean esEmailValido(String texto) {
-    return texto != null && texto.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
-}
+    private boolean esEmailValido(String texto) {
+        return texto != null && texto.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+    }
 
 
 public VistaRegistroPasajero(java.awt.Frame parent, Vuelo vuelo, List<String> asientos, boolean modal, Usuario usuario) {
@@ -411,115 +411,115 @@ private void finalizarVenta() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
-if (indiceActual > 0) {
-        indiceActual--;
-        actualizarInterfaz();
-        
-        Pasaje p = pasajesRegistrados.get(indiceActual);
-        
-       
-        txtNombre.setText(p.getPasajero().getNombre());
-        txtApellido.setText(p.getPasajero().getApellido());
-        txtCedula.setText(p.getPasajero().getCedula());
-        txtTelefono.setText(p.getPasajero().getTelefono());
-        txtEmail.setText(p.getPasajero().getEmail());
-        txtEdad.setText(String.valueOf(p.getPasajero().getEdad()));
-        
-        TipoEquipaje tipo = p.getEquipaje().getTipo();
-        if (tipo == TipoEquipaje.MALETA_MANO) CBEquipaje.setSelectedItem("Maleta de mano");
-        else if (tipo == TipoEquipaje.MALETA_BODEGA) CBEquipaje.setSelectedItem("Maleta de Bodega");
-        else CBEquipaje.setSelectedItem("Artículo personal");
-    }
+        if (indiceActual > 0) {
+                indiceActual--;
+                actualizarInterfaz();
+
+                Pasaje p = pasajesRegistrados.get(indiceActual);
+
+
+                txtNombre.setText(p.getPasajero().getNombre());
+                txtApellido.setText(p.getPasajero().getApellido());
+                txtCedula.setText(p.getPasajero().getCedula());
+                txtTelefono.setText(p.getPasajero().getTelefono());
+                txtEmail.setText(p.getPasajero().getEmail());
+                txtEdad.setText(String.valueOf(p.getPasajero().getEdad()));
+
+                TipoEquipaje tipo = p.getEquipaje().getTipo();
+                if (tipo == TipoEquipaje.MALETA_MANO) CBEquipaje.setSelectedItem("Maleta de mano");
+                else if (tipo == TipoEquipaje.MALETA_BODEGA) CBEquipaje.setSelectedItem("Maleta de Bodega");
+                else CBEquipaje.setSelectedItem("Artículo personal");
+        }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-                                                
-    try {
-        
-        String nombre = txtNombre.getText().trim();
-        String apellido = txtApellido.getText().trim();
-        String cedula = txtCedula.getText().trim();
-        String telefono = txtTelefono.getText().trim();
-        String email = txtEmail.getText().trim();
-        String edadStr = txtEdad.getText().trim();
-        String textoEquipaje = CBEquipaje.getSelectedItem().toString();
+                                        
+        try {
 
-        if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || edadStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete los campos obligatorios.");
-            return;
-        }
-        
-        if (!esNombreValido(nombre)) {
-            JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
-            txtNombre.requestFocus();
-            return;
-        }
-        
-        if (!esNombreValido(apellido)) {
-           JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
-           txtApellido.requestFocus();
-           return;
-        }
-        
-        if (!esNumero10Digitos(cedula)) {
-           JOptionPane.showMessageDialog(this, "La cédula debe tener 10 dígitos.");
-           txtCedula.requestFocus();
-           return;
-        }
-        
-        
-        if (!esNumero10Digitos(telefono)) {
-           JOptionPane.showMessageDialog(this, "El celular debe tener 10 dígitos.");
-           txtTelefono.requestFocus();
-           return;
-        }
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            String cedula = txtCedula.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String email = txtEmail.getText().trim();
+            String edadStr = txtEdad.getText().trim();
+            String textoEquipaje = CBEquipaje.getSelectedItem().toString();
 
-        if (!esEmailValido(email)) {
-           JOptionPane.showMessageDialog(this, "Correo inválido. Debe ser por ejemplo: user@gmail.com");
-           txtEmail.requestFocus();
-           return;
-        }
+            if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || edadStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete los campos obligatorios.");
+                return;
+            }
 
-        if (!esEdadValida(edadStr)) {
-           JOptionPane.showMessageDialog(this, "La edad solo debe contener números.");
-           txtEdad.requestFocus();
-           return;
-        }
-        
-        int edad = Integer.parseInt(edadStr);
-        Pasajero pasajero = new Pasajero(cedula, nombre, apellido, telefono, email, edad);
+            if (!esNombreValido(nombre)) {
+                JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
+                txtNombre.requestFocus();
+                return;
+            }
 
-        
-        TipoEquipaje tipoEnum;
-        if (textoEquipaje.equals("Maleta de mano")) tipoEnum = TipoEquipaje.MALETA_MANO;
-        else if (textoEquipaje.equals("Maleta de Bodega")) tipoEnum = TipoEquipaje.MALETA_BODEGA;
-        else tipoEnum = TipoEquipaje.ARTICULO_PERSONAL;
-        
-        Equipaje objetoEquipaje = new Equipaje(tipoEnum);
+            if (!esNombreValido(apellido)) {
+               JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
+               txtApellido.requestFocus();
+               return;
+            }
 
-        
-        String codigoTkt = "TKT-" + System.currentTimeMillis() + "-" + (indiceActual + 1);
-        
-        
-        Pasaje p = new Pasaje(codigoTkt, vuelo.getPrecio(), asientos.get(indiceActual), 
-                              ClaseAsiento.ECONOMICA, pasajero, vuelo, objetoEquipaje);
+            if (!esNumero10Digitos(cedula)) {
+               JOptionPane.showMessageDialog(this, "La cédula debe tener 10 dígitos.");
+               txtCedula.requestFocus();
+               return;
+            }
 
-        
-        if (indiceActual < pasajesRegistrados.size()) {
-            pasajesRegistrados.set(indiceActual, p);
-        } else {
-            pasajesRegistrados.add(p);
-        }
 
-       
-        if (indiceActual < asientos.size() - 1) {
-            indiceActual++;
-            actualizarInterfaz();
-        } else {
-            finalizarVenta();
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "La edad debe ser un número válido.");
+            if (!esNumero10Digitos(telefono)) {
+               JOptionPane.showMessageDialog(this, "El celular debe tener 10 dígitos.");
+               txtTelefono.requestFocus();
+               return;
+            }
+
+            if (!esEmailValido(email)) {
+               JOptionPane.showMessageDialog(this, "Correo inválido. Debe ser por ejemplo: user@gmail.com");
+               txtEmail.requestFocus();
+               return;
+            }
+
+            if (!esEdadValida(edadStr)) {
+               JOptionPane.showMessageDialog(this, "La edad solo debe contener números.");
+               txtEdad.requestFocus();
+               return;
+            }
+
+            int edad = Integer.parseInt(edadStr);
+            Pasajero pasajero = new Pasajero(cedula, nombre, apellido, telefono, email, edad);
+
+
+            TipoEquipaje tipoEnum;
+            if (textoEquipaje.equals("Maleta de mano")) tipoEnum = TipoEquipaje.MALETA_MANO;
+            else if (textoEquipaje.equals("Maleta de Bodega")) tipoEnum = TipoEquipaje.MALETA_BODEGA;
+            else tipoEnum = TipoEquipaje.ARTICULO_PERSONAL;
+
+            Equipaje objetoEquipaje = new Equipaje(tipoEnum);
+
+
+            String codigoTkt = "TKT-" + System.currentTimeMillis() + "-" + (indiceActual + 1);
+
+
+            Pasaje p = new Pasaje(codigoTkt, vuelo.getPrecio(), asientos.get(indiceActual), 
+                                  ClaseAsiento.ECONOMICA, pasajero, vuelo, objetoEquipaje);
+
+
+            if (indiceActual < pasajesRegistrados.size()) {
+                pasajesRegistrados.set(indiceActual, p);
+            } else {
+                pasajesRegistrados.add(p);
+            }
+
+
+            if (indiceActual < asientos.size() - 1) {
+                indiceActual++;
+                actualizarInterfaz();
+            } else {
+                finalizarVenta();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La edad debe ser un número válido.");
     }
 
     

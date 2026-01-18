@@ -42,12 +42,24 @@ public class Vuelo {
     }
 
    
-    public String getCodigo() { return codigo; }
-    public Date getFecha() { return fecha; }
-    public String getHora() { return hora; }
-    public Ruta getRuta() { return ruta; }
-    public Avion getAvion() { return avion; }
-    public double getPrecio() { return precio; } 
+    public String getCodigo(){
+        return codigo;
+    }
+    public Date getFecha(){
+        return fecha;
+    }
+    public String getHora(){
+        return hora;
+    }
+    public Ruta getRuta(){
+        return ruta;
+    }
+    public Avion getAvion(){
+        return avion;
+    }
+    public double getPrecio(){
+        return precio;
+    } 
 
     public int getAsientosDisponibles() {
         return avion.getCapacidad() - asientosOcupados.size();
