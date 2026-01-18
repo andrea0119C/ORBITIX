@@ -21,16 +21,22 @@ public class UsuarioControlador {
                repo.autenticarUsuario(email, "validar_existencia") != null;
     }
 
-    public boolean registrar(String email, String pass) {
+    public boolean registrar(String cedula, String nombre, String email, String pass) {
 
-        if (email.isEmpty() || pass.isEmpty() || pass.length() < 4) {
-            return false;
-        }
-        
-    
-        Cliente nuevo = new Cliente("N/A", "Usuario", email.trim(), pass.trim());
-        repo.guardarCliente(nuevo);
-        return true;
+    if (cedula.isEmpty() || nombre.isEmpty() ||
+        email.isEmpty() || pass.isEmpty() || pass.length() < 4) {
+        return false;
+    }
+
+    Cliente nuevo = new Cliente(
+        cedula.trim(),
+        nombre.trim(),
+        email.trim(),
+        pass.trim()
+    );
+
+    repo.guardarCliente(nuevo);
+    return true;
     }
 
     public Usuario login(String email, String pass) {

@@ -46,7 +46,7 @@ public class VistaLogin extends javax.swing.JFrame {
         panelLogin = new javax.swing.JPanel();
         labelIniSE = new javax.swing.JLabel();
         labelcontrasena = new javax.swing.JLabel();
-        labelusuario = new javax.swing.JLabel();
+        labelcorreo = new javax.swing.JLabel();
         txtusuario1 = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
@@ -66,11 +66,11 @@ public class VistaLogin extends javax.swing.JFrame {
         labelcontrasena.setText("                Contraseña");
         labelcontrasena.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
-        labelusuario.setBackground(new java.awt.Color(153, 0, 255));
-        labelusuario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labelusuario.setForeground(new java.awt.Color(255, 255, 255));
-        labelusuario.setText("                Usuario");
-        labelusuario.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        labelcorreo.setBackground(new java.awt.Color(153, 0, 255));
+        labelcorreo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelcorreo.setForeground(new java.awt.Color(255, 255, 255));
+        labelcorreo.setText("                Correo");
+        labelcorreo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         btnIngresar.setBackground(new java.awt.Color(51, 204, 255));
         btnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -103,7 +103,7 @@ public class VistaLogin extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
                                     .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(labelcontrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(labelusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(labelcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(111, 111, 111))
                                 .addGroup(panelLoginLayout.createSequentialGroup()
                                     .addComponent(txtusuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,7 +119,7 @@ public class VistaLogin extends javax.swing.JFrame {
                 .addContainerGap(381, Short.MAX_VALUE)
                 .addComponent(labelIniSE, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(labelusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtusuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,8 +162,6 @@ public class VistaLogin extends javax.swing.JFrame {
 
     if (user != null) {
         
-
-        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getEmail());
         intentos = 0; 
         javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getNombre());
         
@@ -235,7 +233,7 @@ public class VistaLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel labelIniSE;
     private javax.swing.JLabel labelcontrasena;
-    private javax.swing.JLabel labelusuario;
+    private javax.swing.JLabel labelcorreo;
     private javax.swing.JPanel panelLogin;
     private javax.swing.JPasswordField txtcontra;
     private javax.swing.JTextField txtusuario1;

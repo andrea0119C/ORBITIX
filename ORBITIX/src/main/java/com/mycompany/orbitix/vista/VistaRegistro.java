@@ -6,6 +6,7 @@ package com.mycompany.orbitix.vista;
 
 import com.mycompany.orbitix.controlador.UsuarioControlador;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +23,7 @@ public class VistaRegistro extends javax.swing.JFrame {
     initComponents();
 
     txtusuario1LOG.setText("Ejemplo: usuario@correo.com");
-    txtcontra.setText(""); 
+    txtNombre.setText(""); 
 
    
     txtusuario1LOG.setForeground(java.awt.Color.GRAY);
@@ -66,12 +67,16 @@ public class VistaRegistro extends javax.swing.JFrame {
 
         panelRegistro = new javax.swing.JPanel();
         labelregistro = new javax.swing.JLabel();
-        labelusuarioLOG = new javax.swing.JLabel();
+        labelcorreoLOG = new javax.swing.JLabel();
         txtusuario1LOG = new javax.swing.JTextField();
         LOG = new javax.swing.JLabel();
         btnguardar = new javax.swing.JButton();
         btnVolverLOG = new javax.swing.JButton();
-        txtcontra = new javax.swing.JPasswordField();
+        LOGCedula = new javax.swing.JLabel();
+        LoGNombre = new javax.swing.JLabel();
+        txtusuario1LOG1 = new javax.swing.JTextField();
+        txtcontra1 = new javax.swing.JPasswordField();
+        txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,11 +86,11 @@ public class VistaRegistro extends javax.swing.JFrame {
         labelregistro.setForeground(new java.awt.Color(255, 255, 255));
         labelregistro.setText("    CREAR CUENTA");
 
-        labelusuarioLOG.setBackground(new java.awt.Color(153, 0, 255));
-        labelusuarioLOG.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        labelusuarioLOG.setForeground(new java.awt.Color(255, 255, 255));
-        labelusuarioLOG.setText("                Usuario");
-        labelusuarioLOG.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        labelcorreoLOG.setBackground(new java.awt.Color(153, 0, 255));
+        labelcorreoLOG.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelcorreoLOG.setForeground(new java.awt.Color(255, 255, 255));
+        labelcorreoLOG.setText("                Correo");
+        labelcorreoLOG.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         LOG.setBackground(new java.awt.Color(153, 0, 255));
         LOG.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -105,45 +110,84 @@ public class VistaRegistro extends javax.swing.JFrame {
         btnVolverLOG.setText("VOLVER");
         btnVolverLOG.addActionListener(this::btnVolverLOGActionPerformed);
 
+        LOGCedula.setBackground(new java.awt.Color(153, 0, 255));
+        LOGCedula.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        LOGCedula.setForeground(new java.awt.Color(255, 255, 255));
+        LOGCedula.setText("                Cédula");
+        LOGCedula.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+
+        LoGNombre.setBackground(new java.awt.Color(153, 0, 255));
+        LoGNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        LoGNombre.setForeground(new java.awt.Color(255, 255, 255));
+        LoGNombre.setText("                Nombre");
+        LoGNombre.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+
+        txtusuario1LOG1.addActionListener(this::txtusuario1LOG1ActionPerformed);
+
+        txtNombre.addActionListener(this::txtNombreActionPerformed);
+
         javax.swing.GroupLayout panelRegistroLayout = new javax.swing.GroupLayout(panelRegistro);
         panelRegistro.setLayout(panelRegistroLayout);
         panelRegistroLayout.setHorizontalGroup(
             panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRegistroLayout.createSequentialGroup()
-                .addContainerGap(451, Short.MAX_VALUE)
+                .addGap(326, 326, 326)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelusuarioLOG, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(labelregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panelRegistroLayout.createSequentialGroup()
-                            .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtcontra, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtusuario1LOG, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                .addComponent(LOG, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(78, 78, 78)
-                            .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnVolverLOG, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(428, 428, 428))
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtusuario1LOG, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LOG, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcontra1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(114, 114, 114)
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRegistroLayout.createSequentialGroup()
+                                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LoGNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(101, 101, 101)
+                                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnVolverLOG, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtusuario1LOG1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addComponent(labelcorreoLOG, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(174, 174, 174)
+                        .addComponent(LOGCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(199, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(409, 409, 409))
         );
         panelRegistroLayout.setVerticalGroup(
             panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistroLayout.createSequentialGroup()
-                .addContainerGap(381, Short.MAX_VALUE)
+                .addContainerGap(365, Short.MAX_VALUE)
                 .addComponent(labelregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelusuarioLOG, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtusuario1LOG, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnguardar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LOG, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVolverLOG))
-                .addGap(28, 28, 28)
-                .addComponent(txtcontra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addComponent(btnguardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVolverLOG)
+                        .addGap(72, 72, 72))
+                    .addGroup(panelRegistroLayout.createSequentialGroup()
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelcorreoLOG, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LOGCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtusuario1LOG, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtusuario1LOG1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LOG, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LoGNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtcontra1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,40 +211,40 @@ public class VistaRegistro extends javax.swing.JFrame {
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
 
-    String email = txtusuario1LOG.getText();
-    String pass = new String(txtcontra.getPassword()); 
-    UsuarioControlador control = new UsuarioControlador();
+String email = txtusuario1LOG.getText().trim();
+String cedula = txtusuario1LOG1.getText().trim();
+String nombre = new String(txtNombre.getText()).trim(); 
+String pass = new String(txtcontra1.getPassword()).trim();
 
+UsuarioControlador control = new UsuarioControlador();
 
-    if (email.isEmpty() || email.equals("Ejemplo: usuario@correo.com") || pass.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
-        return;
-    }
+if (email.isEmpty() || cedula.isEmpty() || nombre.isEmpty() || pass.isEmpty()
+        || email.equals("Ejemplo: usuario@correo.com")) {
+    JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+    return;
+}
 
-   
-    if (!email.contains("@") || !email.contains(".")) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "El formato del correo es incorrecto.\nDebe ser tipo: usuario@correo.com", 
-            "Formato Inválido", 
-            javax.swing.JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+if (!email.contains("@") || !email.contains(".")) {
+    JOptionPane.showMessageDialog(this,
+            "El formato del correo es incorrecto.\nDebe ser tipo: usuario@correo.com",
+            "Formato Inválido",
+            JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-  
-    if (control.login(email, pass) != null) { 
-        javax.swing.JOptionPane.showMessageDialog(this, "Este correo ya está registrado.");
-        return;
-    }
+if (control.existeCorreo(email)) {
+    JOptionPane.showMessageDialog(this, "Este correo ya está registrado.");
+    return;
+}
 
-    if (control.registrar(email, pass)) {
-        javax.swing.JOptionPane.showMessageDialog(this, "¡Cuenta creada exitosamente!");
-        
-        VistaLogin login = new VistaLogin();
-        login.setVisible(true);
-        this.dispose();
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Hubo un error al guardar los datos.");
-    }
+if (control.registrar(cedula, nombre, email, pass)) {
+    JOptionPane.showMessageDialog(this, "¡Cuenta creada exitosamente!");
+    new VistaLogin().setVisible(true);
+    this.dispose();
+} else {
+    JOptionPane.showMessageDialog(this, "Hubo un error al guardar los datos.");
+}
+
 
     }//GEN-LAST:event_btnguardarActionPerformed
 
@@ -209,6 +253,14 @@ public class VistaRegistro extends javax.swing.JFrame {
         inicio.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverLOGActionPerformed
+
+    private void txtusuario1LOG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuario1LOG1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusuario1LOG1ActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,12 +289,16 @@ public class VistaRegistro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LOG;
+    private javax.swing.JLabel LOGCedula;
+    private javax.swing.JLabel LoGNombre;
     private javax.swing.JButton btnVolverLOG;
     private javax.swing.JButton btnguardar;
+    private javax.swing.JLabel labelcorreoLOG;
     private javax.swing.JLabel labelregistro;
-    private javax.swing.JLabel labelusuarioLOG;
     private javax.swing.JPanel panelRegistro;
-    private javax.swing.JPasswordField txtcontra;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JPasswordField txtcontra1;
     private javax.swing.JTextField txtusuario1LOG;
+    private javax.swing.JTextField txtusuario1LOG1;
     // End of variables declaration//GEN-END:variables
 }
