@@ -2,135 +2,212 @@
 note "Autoras:VALERIA CHAVEZ,ANDREA CUMBAL,KARLA GUANA,PAULA GRANDA,PAOLA PACHECO" as N1
 package ORBITIX {
 
-abstract class Usuario {
-    - cedula : String
-    - nombre : String
-    - email : String
-    + buscarVuelos()
-    + realizarCompra() 
-    + verCompras() 
-}
 
 class Aerolinea {
-    - nombre : String
-    - vuelos : List<Vuelo>
-    + agregarVuelo()
-    + listarVuelos() 
-}
-
-class Vuelo {
-    - codigo : String
-    - fecha : Date
-    - hora : String
-    - ruta : Ruta
-    - avion : Avion
-    - asientosDisponibles : int
-    + disminuirAsientos()
-}
-
-class Ruta {
-    - origen : String
-    - destino : String
-    - duracion : double
+  - nombre: String
+  - vuelos: List<Vuelo>
+  + Aerolinea(nombre: String)
+  + agregarVuelo(v: Vuelo): void
+  + listarVuelos(): List<Vuelo>
+  + getNombre(): String
 }
 
 class Avion {
-    - modelo : String
-    - capacidad : int
-    - registroAeronautico: String
-}
-
-class Pasajero {
-    - cedula : String
-    - nombre : String
-    - apellido: String
-    - telefono: String
-    - email : String
-    - edad: int
-}
-
-class Compra {
-    - codigo : String
-    - fecha : Date
-    - total : double
-    + confirmarCompra()
-}
-
-class Pasaje {
-    - codigo : String
-    - precio : double
-    - asiento : String
-    - clase : ClaseAsiento
-    - pasajero : Pasajero
-    - vuelo : Vuelo
-}
-
-class Pago {
-    - id : String
-    - monto : double
-    - fecha : Date
-    - metodo : MetodoPago
-    + procesarPago() : boolean
-}
-
-enum MetodoPago {
-    TARJETA
-    TRANSFERENCIA
-    PAYPAL
-}
-
-class Equipaje {
-    - tipo : TipoEquipaje
-    - peso : double
-    - costoExtra : double
+  - modelo: String
+  - capacidad: int
+  - registroAeronualico: String
+  + Avion(modelo: String, capacidad: int, registroAeronualico: String)
+  + getModelo(): String
+  + setModelo(modelo: String): void
+  + getCapacidad(): int
+  + setCapacidad(capacidad: int): void
+  + getRegistroAeronualico(): String
+  + setRegistroAeronualico(registroAeronualico: String): void
+  + toString(): String
 }
 
 enum ClaseAsiento {
-    ECONOMICA
-    EJECUTIVA
-    PRIMERA
+  ECONOMICA
+  EJECUTIVA
+  PRIMERA_CLASE
+}
+
+abstract class Usuario {
+  # cedula: String
+  # nombre: String
+  # email: String
+  # password: String
+  + Usuario(cedula: String, nombre: String, email: String, password: String)
+  + getCedula(): String
+  + getNombre(): String
+  + getEmail(): String
+  + getPassword(): String
+}
+
+class Cliente {
+  + Cliente(cedula: String, nombre: String, email: String, password: String)
+  + toString(): String
+}
+
+class Compra {
+  - codigo: String
+  - fecha: Date
+  - total: double
+  - usuario: Usuario
+  - pago: Pago
+  - pasajes: List<Pasaje>
+  + Compra(codigo: String, usuario: Usuario)
+  + agregarPasaje(pasaje: Pasaje): void
+  + confirmarCompra(): boolean
+  + getCodigo(): String
+  + getFecha(): Date
+  + getTotal(): double
+  + getUsuario(): Usuario
+  + getPasajes(): List<Pasaje>
+  + getPago(): Pago
+  + setPago(pago: Pago): void
 }
 
 enum TipoEquipaje {
-    ARTICULO_PERSONAL
-    MALETA_MANO
-    MALETA_BODEGA
+  ARTICULO_PERSONAL
+  MALETA_MANO
+  MALETA_BODEGA
 }
 
-interface RepositorioDatos {
-    + guardarVuelo()
-    + cargarVuelos()
-    + guardarPasajero()
-    + cargarPasajeros()
-    + guardarCompra()
-    + cargarCompras()
-    + borrarTodo()
+class Equipaje {
+  - tipo: TipoEquipaje
+  - costoExtra: double
+  + Equipaje(tipo: TipoEquipaje)
+  - calcularCostoExtra(): double
+  + getTipo(): TipoEquipaje
+  + getCostoExtra(): double
 }
 
-class RepositorioArchivos {
-    + guardarVuelo()
-    + cargarVuelos()
-    + guardarPasajero()
-    + cargarPasajeros()
-    + guardarCompra()
-    + cargarCompras()
-    + borrarTodo()
+enum MetodoPago {
+  TARJETA
 }
 
-RepositorioDatos <|.. RepositorioArchivos
-
-Aerolinea "1" o-- "*" Vuelo
-Vuelo "1" o-- "1" Ruta
-Vuelo "1" o-- "1" Avion
-
-Compra "1" o-- "*" Pasaje
-Usuario "1" o-- "*" Compra
-Compra "1" o-- "1" Pasajero
-Compra "1" o-- "1" Pago
-
-Pasaje "1" o-- "1" Vuelo
-Pasaje "1" o-- "1" Pasajero
-Pasaje "1" o-- "*" Equipaje
-
+class Pago {
+  - id: String
+  - monto: double
+  - fecha: Date
+  - metodo: MetodoPago
+  + Pago(id: String, monto: double, fecha: Date, metodo: MetodoPago)
+  + procesarPago(): boolean
+  + getId(): String
+  + setId(id: String): void
+  + getMonto(): double
+  + setMonto(monto: double): void
+  + getFecha(): Date
+  + setFecha(fecha: Date): void
+  + getMetodo(): MetodoPago
+  + setMetodo(metodo: MetodoPago): void
 }
+
+class Pasaje {
+  - codigo: String
+  - precio: double
+  - asiento: String
+  - clase: ClaseAsiento
+  - pasajero: Pasajero
+  - vuelo: Vuelo
+  - equipaje: Equipaje
+  + Pasaje(codigo: String, precio: double, asiento: String, clase: ClaseAsiento, pasajero: Pasajero, vuelo: Vuelo, equipaje: Equipaje)
+  + getCodigo(): String
+  + setCodigo(codigo: String): void
+  + getPrecio(): double
+  + setPrecio(precio: double): void
+  + getAsiento(): String
+  + setAsiento(asiento: String): void
+  + getClase(): ClaseAsiento
+  + setClase(clase: ClaseAsiento): void
+  + getPasajero(): Pasajero
+  + setPasajero(pasajero: Pasajero): void
+  + getVuelo(): Vuelo
+  + setVuelo(vuelo: Vuelo): void
+  + getEquipaje(): Equipaje
+  + setEquipaje(equipaje: Equipaje): void
+}
+
+class Pasajero {
+  - cedula: String
+  - nombre: String
+  - apellido: String
+  - telefono: String
+  - email: String
+  - edad: int
+  + Pasajero(cedula: String, nombre: String, apellido: String, telefono: String, email: String, edad: int)
+  + getCedula(): String
+  + setCedula(cedula: String): void
+  + getNombre(): String
+  + setNombre(nombre: String): void
+  + getApellido(): String
+  + setApellido(apellido: String): void
+  + getTelefono(): String
+  + setTelefono(telefono: String): void
+  + getEmail(): String
+  + setEmail(email: String): void
+  + getEdad(): int
+  + setEdad(edad: int): void
+  + toString(): String
+}
+
+class Ruta {
+  - origen: String
+  - destino: String
+  - duracion: double
+  + Ruta(origen: String, destino: String, duracion: double)
+  + getDuracionFormateada(): String
+  + getOrigen(): String
+  + setOrigen(origen: String): void
+  + getDestino(): String
+  + setDestino(destino: String): void
+  + getDuracion(): double
+  + setDuracion(duracion: double): void
+  + toString(): String
+}
+
+class Vuelo {
+  - codigo: String
+  - fecha: Date
+  - hora: String
+  - ruta: Ruta
+  - avion: Avion
+  - precio: double
+  - asientosOcupados: Set<String>
+  + Vuelo(codigo: String, fecha: Date, hora: String, ruta: Ruta, avion: Avion, precio: double)
+  + Vuelo()
+  + esAsientoDisponible(numeroAsiento: String): boolean
+  + ocuparAsiento(numeroAsiento: String): void
+  + getCodigo(): String
+  + getFecha(): Date
+  + getHora(): String
+  + getRuta(): Ruta
+  + getAvion(): Avion
+  + getPrecio(): double
+  + getAsientosDisponibles(): int
+  + getAsientosOcupados(): Set<String>
+}
+
+
+Cliente --|> Usuario
+
+Aerolinea "1" o-- "0..*" Vuelo : vuelos
+
+Vuelo "1" --> "1" Ruta : ruta
+Vuelo "1" --> "1" Avion : avion
+
+Compra "1" --> "1" Usuario : usuario
+Compra "1" o-- "1..*" Pasaje : pasajes
+Compra "1" --> "0..1" Pago : pago
+
+Pago "1" --> "1" MetodoPago : metodo
+
+Pasaje "1" --> "1" Vuelo : vuelo
+Pasaje "1" --> "1" Pasajero : pasajero
+Pasaje "1" --> "1" Equipaje : equipaje
+Pasaje "1" --> "1" ClaseAsiento : clase
+
+Equipaje "1" --> "1" TipoEquipaje : tipo
+
 @enduml
