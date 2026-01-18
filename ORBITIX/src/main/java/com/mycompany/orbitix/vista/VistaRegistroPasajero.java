@@ -15,6 +15,13 @@ import javax.swing.*;
  */
 public class VistaRegistroPasajero extends javax.swing.JDialog {
 
+    private List<String> asientos;
+    private Vuelo vuelo;
+    private int indiceActual = 0;
+    private List<Pasaje> pasajesRegistrados = new ArrayList<>();
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaRegistroPasajero.class.getName());
+    private Usuario usuarioLogueado;
+    
     private boolean esNombreValido(String texto) {
     return texto != null && texto.matches("^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+$");
 }
@@ -31,16 +38,12 @@ private boolean esEmailValido(String texto) {
     return texto != null && texto.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
 }
 
-    private List<String> asientos;
-    private Vuelo vuelo;
-    private int indiceActual = 0;
-    private List<Pasaje> pasajesRegistrados = new ArrayList<>();
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaRegistroPasajero.class.getName());
 
-    public VistaRegistroPasajero(java.awt.Frame parent, Vuelo vuelo, List<String> asientos, boolean modal) {
+public VistaRegistroPasajero(java.awt.Frame parent, Vuelo vuelo, List<String> asientos, boolean modal, Usuario usuario) {
         super(parent, modal);
         this.vuelo = vuelo;
         this.asientos = asientos;
+        this.usuarioLogueado = usuario; // Ahora 'usuario' sí existe como parámetro
 
         Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
         fondo.setLayout(new java.awt.BorderLayout());
@@ -113,17 +116,21 @@ private boolean esEmailValido(String texto) {
         btnSiguiente.setText(indiceActual == asientos.size() - 1 ? "FINALIZAR COMPRA" : "SIGUIENTE");
     }
 
-    private void finalizarVenta() {
-        PasajeControlador control = new PasajeControlador();
-        boolean exito = control.registrarVentaTotal(pasajesRegistrados);
-        if (exito) {
-            JOptionPane.showMessageDialog(this, "¡Registro exitoso de todos los pasajeros!");
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al guardar los pasajes.");
-        }
+private void finalizarVenta() {
+    PasajeControlador control = new PasajeControlador();
+    // 'pasajesRegistrados' es List<Pasaje>
+    boolean exito = control.registrarVentaTotal(pasajesRegistrados);
+    
+    if (exito) {
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        
+        // Esta línea dará error HASTA que modifiques el constructor de VistaCompra
+        VistaCompra vistaPago = new VistaCompra(parentFrame, vuelo, pasajesRegistrados, usuarioLogueado);
+        
+        vistaPago.setVisible(true);
+        this.dispose();
     }
-
+}
     
 
     /**
@@ -588,5 +595,7 @@ if (indiceActual > 0) {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+
 }
 

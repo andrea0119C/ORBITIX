@@ -7,6 +7,7 @@ package com.mycompany.orbitix.vista;
 import com.mycompany.orbitix.modelo.Vuelo;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -242,23 +243,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void btnSelecComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecComprarActionPerformed
 int fila = tablaVuelos.getSelectedRow();
     if (fila == -1) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
+        JOptionPane.showMessageDialog(this, "Seleccione un vuelo primero.");
         return;
     }
 
     String codigo = tablaVuelos.getValueAt(fila, 0).toString();
-    Vuelo seleccionado = null;
-    for(Vuelo v : listaVuelosActuales) {
-        if(v.getCodigo().equals(codigo)) {
-            seleccionado = v;
-            break;
-        }
-    }
+    Vuelo seleccionado = listaVuelosActuales.stream()
+            .filter(v -> v.getCodigo().equals(codigo))
+            .findFirst().orElse(null);
 
     if (seleccionado != null) {
-        // ERROR CORREGIDO AQUÍ: Ahora pasamos 3 parámetros (this, seleccionado, usuarioLogueado)
+        // Pasamos 'this' (VistaPrincipal) y el usuario actual
         VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado, this.usuarioLogueado);
         mapa.setVisible(true);
+        this.setVisible(false); // Opcional: oculta la principal mientras elige asientos
     }
     }//GEN-LAST:event_btnSelecComprarActionPerformed
 

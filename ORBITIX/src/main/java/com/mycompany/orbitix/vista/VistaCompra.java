@@ -22,6 +22,7 @@ public class VistaCompra extends javax.swing.JFrame {
     private Vuelo vuelo;
     private List<String> asientos;
     private Usuario usuarioLogueado;
+    
 
     public VistaCompra(JFrame padre, Vuelo vuelo, List<String> asientos, Usuario usuario) {
         this.vuelo = vuelo;

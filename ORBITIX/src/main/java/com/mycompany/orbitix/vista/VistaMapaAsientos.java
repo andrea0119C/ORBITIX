@@ -85,21 +85,22 @@ public class VistaMapaAsientos extends JDialog {
             if (asientosSeleccionados.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe elegir al menos un asiento.");
             } else {
-                Window window = SwingUtilities.getWindowAncestor(this);
-                JFrame framePadre = (window instanceof JFrame) ? (JFrame) window : null;
+                JFrame framePadre = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-                VistaCompra vistaPago = new VistaCompra(
-                        framePadre,
-                        vuelo,
-                        asientosSeleccionados,
-                        usuarioLogueado
+                // Pasamos 5 parámetros: el último es el usuarioLogueado
+                VistaRegistroPasajero vistaRegistro = new VistaRegistroPasajero(
+                        framePadre, 
+                        vuelo, 
+                        asientosSeleccionados, 
+                        true,
+                        usuarioLogueado // <--- ASEGÚRATE DE AGREGAR ESTO
                 );
-                this.dispose();
-                vistaPago.setVisible(true);
+
+                this.dispose(); 
+                vistaRegistro.setVisible(true); 
             }
         });
 
-        // --- TODA ESTA PARTE ESTABA AFUERA EN TU CÓDIGO ---
         JPanel panelLeyenda = new JPanel();
         panelLeyenda.add(new JLabel("Dorado: 1ra Clase | Celeste: Ejecutiva | Verde: Económica | Rojo: Ocupado"));
 

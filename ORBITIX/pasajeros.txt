@@ -1,14 +1,3 @@
-1729387611;Andrea Cumbal;;;;19
-1234567890;Karla Guaña;;;;19
-0987654321;Paola Pacheco;;;;19
-1234567890;Andrea;;;;19
-0987654321;Paola;;;;19
-1243567890;qswded;;;;23
-1751661446;Paula Granda;;;;10
-1234567890;Gabriel Granda;;;;22
-1234566789;Melany Granda;;;;34
-12345678900;Andres Gonzales;;;;22
-1850341627;Paola;Pacheco;0998618483;paopacheco@gmail.com;19
-15;P;P;098;pao;12
-1243567809;Nicol;Cumbal;0986319159;andrea01@gmail.com;19
 1751307727;Karla Guaña;51;V008;C8;ARTICULO_PERSONAL;185.0;0.0
+1751661446;William Granda;45;V045;D2;MALETA_MANO;480.0;20.0
+1234567890;Melanu Granda;23;V008;C3;MALETA_MANO;185.0;20.0
