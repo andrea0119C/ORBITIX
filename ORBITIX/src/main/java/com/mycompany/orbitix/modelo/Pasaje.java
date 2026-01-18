@@ -11,30 +11,73 @@ public class Pasaje {
     private ClaseAsiento clase;
     private Pasajero pasajero;
     private Vuelo vuelo;
-    
-    public Pasaje(String codigo, double precio, String asiento, ClaseAsiento clase, Pasajero pasajero, Vuelo vuelo) {
+    private Equipaje equipaje;
+
+    public Pasaje(String codigo, double precio, String asiento, ClaseAsiento clase, Pasajero pasajero, Vuelo vuelo, Equipaje equipaje) {
         this.codigo = codigo;
         this.precio = precio;
         this.asiento = asiento;
         this.clase = clase;
         this.pasajero = pasajero;
         this.vuelo = vuelo;
+        this.equipaje = equipaje;
     }
 
-    // Getters
-    public String getCodigo(){
+    public String getCodigo() {
         return codigo;
     }
-    public double getPrecio(){
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public double getPrecio() {
         return precio;
     }
-    public String getAsiento(){
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getAsiento() {
         return asiento;
     }
-    public Pasajero getPasajero(){
+
+    public void setAsiento(String asiento) {
+        this.asiento = asiento;
+    }
+
+    public ClaseAsiento getClase() {
+        return clase;
+    }
+
+    public void setClase(ClaseAsiento clase) {
+        this.clase = clase;
+    }
+
+    public Pasajero getPasajero() {
         return pasajero;
     }
-    public Vuelo getVuelo(){
+
+    public void setPasajero(Pasajero pasajero) {
+        this.pasajero = pasajero;
+    }
+
+    public Vuelo getVuelo() {
         return vuelo;
     }
+
+    public void setVuelo(Vuelo vuelo) {
+        this.vuelo = vuelo;
+    }
+
+    public Equipaje getEquipaje() {
+        return equipaje;
+    }
+
+    public void setEquipaje(Equipaje equipaje) {
+        this.equipaje = equipaje;
+    }
+    
+    
 }

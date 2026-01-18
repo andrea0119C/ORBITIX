@@ -248,14 +248,24 @@ private void asociarPasajesACompra(Compra c) {
         String linea;
         while ((linea = br.readLine()) != null) {
             String[] d = linea.split(";");
+    
             if (d[1].equals(c.getCodigo())) {
                 Vuelo v = buscarVueloPorCodigo(d[2]);
                 Pasajero p = buscarPasajeroPorCedula(d[4]);
-                Pasaje pasaje = new Pasaje(d[0], v.getPrecio(), d[3], null, p, v);
+
+                ClaseAsiento clase = ClaseAsiento.valueOf(d[5]); 
+
+                TipoEquipaje tipoEq = TipoEquipaje.valueOf(d[6]);
+                Equipaje equipaje = new Equipaje(tipoEq);
+                
+                Pasaje pasaje = new Pasaje(d[0], v.getPrecio(), d[3], clase, p, v, equipaje);
+                
                 c.agregarPasaje(pasaje);
             }
         }
-    } catch (IOException e) { e.printStackTrace(); }
+    } catch (IOException | IllegalArgumentException e) { 
+        System.err.println("Error al reconstruir pasaje: " + e.getMessage());
+    }
 }
 
     @Override

@@ -56,7 +56,6 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     }
 
     private void configurarComboBox() {
-        // Configura las opciones solicitadas para el equipaje
         CBEquipaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
             "Artículo personal",
             "Maleta de mano",
@@ -390,59 +389,81 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
-        // TODO add your handling code here:
-        if (indiceActual > 0) {
-            indiceActual--;
-            actualizarInterfaz();
-            Pasaje p = pasajesRegistrados.get(indiceActual);
-            txtNombre.setText(p.getPasajero().getNombre());
-            txtApellido.setText(p.getPasajero().getApellido());
-            txtCedula.setText(p.getPasajero().getCedula());
-            txtTelefono.setText(p.getPasajero().getTelefono());
-            txtEmail.setText(p.getPasajero().getEmail());
-            txtEdad.setText(String.valueOf(p.getPasajero().getEdad()));
-            CBEquipaje.setSelectedItem(p.getTipoEquipaje());
-        }
+if (indiceActual > 0) {
+        indiceActual--;
+        actualizarInterfaz();
+        
+        Pasaje p = pasajesRegistrados.get(indiceActual);
+        
+       
+        txtNombre.setText(p.getPasajero().getNombre());
+        txtApellido.setText(p.getPasajero().getApellido());
+        txtCedula.setText(p.getPasajero().getCedula());
+        txtTelefono.setText(p.getPasajero().getTelefono());
+        txtEmail.setText(p.getPasajero().getEmail());
+        txtEdad.setText(String.valueOf(p.getPasajero().getEdad()));
+        
+        TipoEquipaje tipo = p.getEquipaje().getTipo();
+        if (tipo == TipoEquipaje.MALETA_MANO) CBEquipaje.setSelectedItem("Maleta de mano");
+        else if (tipo == TipoEquipaje.MALETA_BODEGA) CBEquipaje.setSelectedItem("Maleta de Bodega");
+        else CBEquipaje.setSelectedItem("Artículo personal");
+    }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        // TODO add your handling code here:
-        try {
-            // Captura de TODOS los datos
-            String nombre = txtNombre.getText().trim();
-            String apellido = txtApellido.getText().trim();
-            String cedula = txtCedula.getText().trim();
-            String telefono = txtTelefono.getText().trim();
-            String email = txtEmail.getText().trim();
-            String edadStr = txtEdad.getText().trim();
-            String tipoEquipaje = CBEquipaje.getSelectedItem().toString();
+                                                
+    try {
+        // 1. Captura de datos básicos
+        String nombre = txtNombre.getText().trim();
+        String apellido = txtApellido.getText().trim();
+        String cedula = txtCedula.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        String email = txtEmail.getText().trim();
+        String edadStr = txtEdad.getText().trim();
+        String textoEquipaje = CBEquipaje.getSelectedItem().toString();
 
-            if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || edadStr.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, complete los campos obligatorios.");
-                return;
-            }
-
-            int edad = Integer.parseInt(edadStr);
-            Pasajero pasajero = new Pasajero(cedula, nombre, apellido, telefono, email, edad);
-
-            String codigoTkt = "TKT-" + System.currentTimeMillis() + "-" + (indiceActual + 1);
-            Pasaje p = new Pasaje(codigoTkt, vuelo.getPrecio(), asientos.get(indiceActual), tipoEquipaje, pasajero, vuelo);
-
-            if (indiceActual < pasajesRegistrados.size()) {
-                pasajesRegistrados.set(indiceActual, p);
-            } else {
-                pasajesRegistrados.add(p);
-            }
-
-            if (indiceActual < asientos.size() - 1) {
-                indiceActual++;
-                actualizarInterfaz();
-            } else {
-                finalizarVenta();
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La edad debe ser un número válido.");
+        if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || edadStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete los campos obligatorios.");
+            return;
         }
+
+        // 2. Crear el objeto Pasajero
+        int edad = Integer.parseInt(edadStr);
+        Pasajero pasajero = new Pasajero(cedula, nombre, apellido, telefono, email, edad);
+
+        // 3. Crear el objeto Equipaje basado en la selección
+        TipoEquipaje tipoEnum;
+        if (textoEquipaje.equals("Maleta de mano")) tipoEnum = TipoEquipaje.MALETA_MANO;
+        else if (textoEquipaje.equals("Maleta de Bodega")) tipoEnum = TipoEquipaje.MALETA_BODEGA;
+        else tipoEnum = TipoEquipaje.ARTICULO_PERSONAL;
+        
+        Equipaje objetoEquipaje = new Equipaje(tipoEnum);
+
+        // 4. Crear el Pasaje (Asignamos ECONOMICA por defecto o según tu lógica)
+        String codigoTkt = "TKT-" + System.currentTimeMillis() + "-" + (indiceActual + 1);
+        
+        // Pasamos: codigo, precio, numAsiento, CLASE (Enum), pasajero, vuelo, EQUIPAJE (Objeto)
+        Pasaje p = new Pasaje(codigoTkt, vuelo.getPrecio(), asientos.get(indiceActual), 
+                              ClaseAsiento.ECONOMICA, pasajero, vuelo, objetoEquipaje);
+
+        // 5. Guardar en la lista temporal
+        if (indiceActual < pasajesRegistrados.size()) {
+            pasajesRegistrados.set(indiceActual, p);
+        } else {
+            pasajesRegistrados.add(p);
+        }
+
+        // 6. Navegación
+        if (indiceActual < asientos.size() - 1) {
+            indiceActual++;
+            actualizarInterfaz();
+        } else {
+            finalizarVenta();
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "La edad debe ser un número válido.");
+    }
+
     
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
