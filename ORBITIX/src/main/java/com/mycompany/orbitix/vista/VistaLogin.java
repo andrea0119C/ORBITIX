@@ -157,8 +157,8 @@ public class VistaLogin extends javax.swing.JFrame {
     String email = txtusuario1.getText(); 
     String pass = new String(txtcontra.getPassword()); 
 
-    com.mycompany.orbitix.controlador.UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
-    com.mycompany.orbitix.modelo.Usuario user = control.login(email, pass);
+    UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
+    Usuario user = control.login(email, pass);
 
     if (user != null) {
         

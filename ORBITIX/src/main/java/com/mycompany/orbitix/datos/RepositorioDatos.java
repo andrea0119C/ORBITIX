@@ -6,17 +6,24 @@ package com.mycompany.orbitix.datos;
 import com.mycompany.orbitix.modelo.*;
 import java.util.List;
 
+
 public interface RepositorioDatos {
     
   
     void guardarVuelo(Vuelo vuelo); 
     List<Vuelo> cargarVuelos();    
-    
+    Vuelo buscarVueloPorCodigo(String codigo); 
+
+   
     void guardarCliente(Cliente cliente); 
     Usuario autenticarUsuario(String email, String password);
-    
+    Usuario buscarUsuarioPorCedula(String cedula); 
+
+
     void guardarPasajero(Pasajero pasajero); 
     List<Pasajero> cargarPasajeros();
+    Pasajero buscarPasajeroPorCedula(String cedula);
+
 
     void guardarCompra(Compra compra);
     List<Compra> cargarCompras(); 

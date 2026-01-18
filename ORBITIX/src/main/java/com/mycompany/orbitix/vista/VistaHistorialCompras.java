@@ -4,7 +4,12 @@
  */
 package com.mycompany.orbitix.vista;
 
-import javax.swing.JFrame;
+
+import com.mycompany.orbitix.modelo.Compra;
+import com.mycompany.orbitix.modelo.Pasaje;
+import com.mycompany.orbitix.datos.RepositorioArchivos;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 /**
  *
@@ -12,30 +17,36 @@ import javax.swing.JFrame;
  */
 public class VistaHistorialCompras extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaHistorialCompras.class.getName());
     private com.mycompany.orbitix.modelo.Usuario usuarioLogueado;
+
     /**
      * Creates new form VistaHistorialCompras
+     * @param parent El frame padre
+     * @param usuario El usuario que inició sesión
      */
 public VistaHistorialCompras(java.awt.Frame parent, com.mycompany.orbitix.modelo.Usuario usuario) {
-    
-    super(parent, true); 
+super(parent, true);
+        this.usuarioLogueado = usuario;
 
-    this.usuarioLogueado = usuario;
+        initComponents();
 
-    initComponents(); 
+        // Configuración de tabla y carga de datos
+        configurarTabla();
+        cargarDatosHistorial();
 
-    Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
-    fondo.setLayout(new java.awt.BorderLayout());
-
-    if (panelHistorial != null) {
-        panelHistorial.setOpaque(false); 
-        fondo.add(panelHistorial, java.awt.BorderLayout.CENTER);
-    }
-
-    setContentPane(fondo);
-    this.setSize(1000, 700); 
-    this.setLocationRelativeTo(null); 
+        // Configuración de fondo
+        Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
+        fondo.setLayout(new java.awt.BorderLayout());
+        
+        // Hacer que el panel sea transparente para ver el fondo
+        panelHistorial.setOpaque(false);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        
+        fondo.add(panelHistorial);
+        setContentPane(fondo);
+        this.setSize(1000, 700); 
+        this.setLocationRelativeTo(null); 
 }
 
     /**
@@ -155,14 +166,43 @@ public VistaHistorialCompras(java.awt.Frame parent, com.mycompany.orbitix.modelo
     // End of variables declaration//GEN-END:variables
 
     private void configurarTabla() {
-    javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(
-        new Object [][] {},
-        new String [] { "Fecha", "Vuelo", "Asiento", "Pasajero", "Precio" }
-    ) {
-        @Override
-        public boolean isCellEditable(int row, int column) { return false; }
-    };
-    tablaHistorial.setModel(modelo);
-}
+            String[] columnas = {"Fecha", "Vuelo", "Asiento", "Pasajero", "Precio"};
+            DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tablaHistorial.setModel(modelo);
+        }
 
+    
+    private void cargarDatosHistorial() {
+        if (usuarioLogueado == null) return;
+
+        DefaultTableModel modelo = (DefaultTableModel) tablaHistorial.getModel();
+        modelo.setRowCount(0);
+
+        RepositorioArchivos repo = new RepositorioArchivos();
+        // Usamos el nombre del método que definimos en RepositorioDatos
+        List<Compra> lista = repo.cargarCompras(); 
+
+        if (lista != null) {
+            for (Compra c : lista) {
+                // Filtramos por la cédula o email del usuario logueado
+                if (c.getUsuario().getCedula().equals(usuarioLogueado.getCedula())) {
+                    // Como una compra tiene una LISTA de pasajes, recorremos cada uno
+                    for (Pasaje p : c.getPasajes()) {
+                        modelo.addRow(new Object[]{
+                            c.getFecha().toString(),
+                            p.getVuelo().getCodigo(),
+                            p.getAsiento(),
+                            p.getPasajero().getNombre() + " " + p.getPasajero().getApellido(),
+                            "$" + p.getPrecio()
+                        });
+                    }
+                }
+            }
+        }
+    }
 }

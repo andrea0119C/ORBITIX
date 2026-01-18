@@ -209,4 +209,83 @@ public void guardarPasaje(Pasaje p) {
         return null; 
     }
 
+ public List<Compra> obtenerListaCompras() {
+    List<Compra> lista = new ArrayList<>();
+    try (BufferedReader br = new BufferedReader(new FileReader(PATH_COMPRAS))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] d = linea.split(";");
+            Usuario u = buscarUsuarioPorCedula(d[2]);
+            Compra c = new Compra(d[0], u);
+            asociarPasajesACompra(c); // Une los pasajes con la compra
+            lista.add(c);
+        }
+    } catch (IOException e) { e.printStackTrace(); }
+    return lista;
+}
+
+ @Override
+public Usuario buscarUsuarioPorCedula(String cedula) {
+   
+    try (BufferedReader br = new BufferedReader(new FileReader("usuarios.txt"))) { 
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] d = linea.split(";");
+        
+            if (d[0].equals(cedula)) {
+         
+                return new Cliente(d[0], d[1], d[2], d[3]);
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Error al buscar usuario: " + e.getMessage());
+    }
+    return null; 
+}
+
+private void asociarPasajesACompra(Compra c) {
+    try (BufferedReader br = new BufferedReader(new FileReader(PATH_PASAJES))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] d = linea.split(";");
+            if (d[1].equals(c.getCodigo())) {
+                Vuelo v = buscarVueloPorCodigo(d[2]);
+                Pasajero p = buscarPasajeroPorCedula(d[4]);
+                Pasaje pasaje = new Pasaje(d[0], v.getPrecio(), d[3], null, p, v);
+                c.agregarPasaje(pasaje);
+            }
+        }
+    } catch (IOException e) { e.printStackTrace(); }
+}
+
+    @Override
+    public Pasajero buscarPasajeroPorCedula(String cedula) {
+    try (BufferedReader br = new BufferedReader(new FileReader(PATH_PASAJEROS))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] d = linea.split(";");
+            if (d[0].equals(cedula)) 
+                return new Pasajero(d[0], d[1], d[2], d[3], d[4], Integer.parseInt(d[5]));
+        }
+    } catch (Exception e) { e.printStackTrace(); }
+    return null;
+}
+
+    @Override
+    public Vuelo buscarVueloPorCodigo(String codigoVuelo) {
+    try (BufferedReader br = new BufferedReader(new FileReader("vuelos.txt"))) { // Ajusta el nombre de tu archivo
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] d = linea.split(";");
+            if (d[0].equals(codigoVuelo)) {
+                // Aquí reconstruyes el vuelo según tus constructores de Vuelo.
+                // Ejemplo: return new Vuelo(d[0], d[1], d[2], Double.parseDouble(d[3]));
+                // Debes adaptarlo a los atributos de tu clase Vuelo
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Error al buscar vuelo: " + e.getMessage());
+    }
+    return null;
+}
 }
