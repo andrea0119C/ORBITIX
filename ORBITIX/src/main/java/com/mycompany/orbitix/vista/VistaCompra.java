@@ -4,6 +4,7 @@
  */
 package com.mycompany.orbitix.vista;
 
+import com.mycompany.orbitix.modelo.Pasaje;
 import com.mycompany.orbitix.modelo.Usuario;
 import com.mycompany.orbitix.modelo.Vuelo;
 import java.util.List;
@@ -17,31 +18,25 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class VistaCompra extends javax.swing.JFrame {
-    // Estas variables deben ir DENTRO de la clase
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaCompra.class.getName());
+    
     private Vuelo vuelo;
-    private List<String> asientos;
+    private List<Pasaje> pasajes; 
     private Usuario usuarioLogueado;
     
 
-    public VistaCompra(JFrame padre, Vuelo vuelo, List<String> asientos, Usuario usuario) {
+    public VistaCompra(JFrame padre, Vuelo vuelo, List<Pasaje> pasajes, Usuario usuario) {
         this.vuelo = vuelo;
-        this.asientos = asientos;
+        this.pasajes = pasajes; // Asignación de la lista de objetos
         this.usuarioLogueado = usuario;
 
         initComponents();
 
+        // Configuración estética manual
         Fondo fondo = new Fondo("/recursos/fondo_vPrincipal_orbitix.png");
         fondo.setLayout(new java.awt.BorderLayout());
         setContentPane(fondo);
-
         panelCompraFinal.setOpaque(false); 
         fondo.add(panelCompraFinal, java.awt.BorderLayout.CENTER);
-
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
-        
-        // 3. Transparencia parcial para el panel de la tarjeta (opcional para estética)
         panelTarjeta.setBackground(new java.awt.Color(102, 0, 153, 200)); 
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -272,9 +267,9 @@ public class VistaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumTarjeta1ActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-  
+                                       
     if (usuarioLogueado == null) {
-        JOptionPane.showMessageDialog(this, "Error: Sesión no válida. Inicie sesión nuevamente.");
+        JOptionPane.showMessageDialog(this, "Error: Sesión no válida.");
         return;
     }
 
@@ -284,44 +279,17 @@ public class VistaCompra extends javax.swing.JFrame {
     }
 
     try {
-      
+        // 1. Crear la compra vinculada al usuario logueado
         String codigoCompra = "C-" + (int) (Math.random() * 10000);
         com.mycompany.orbitix.modelo.Compra nuevaCompra = new com.mycompany.orbitix.modelo.Compra(codigoCompra, usuarioLogueado);
 
-     
-        for (String numAsiento : asientos) {
-       
-            int fila = Integer.parseInt(numAsiento.substring(1));
-            double precioFinal = vuelo.getPrecio();
-            com.mycompany.orbitix.modelo.ClaseAsiento clase;
-
-            if (fila <= 2) {
-                clase = com.mycompany.orbitix.modelo.ClaseAsiento.PRIMERA_CLASE;
-                precioFinal += 100;
-            } else if (fila <= 5) {
-                clase = com.mycompany.orbitix.modelo.ClaseAsiento.EJECUTIVA;
-                precioFinal += 50;
-            } else {
-                clase = com.mycompany.orbitix.modelo.ClaseAsiento.ECONOMICA;
-            }
-
-
-            com.mycompany.orbitix.modelo.Pasajero pas = new com.mycompany.orbitix.modelo.Pasajero(
-                    usuarioLogueado.getCedula(), usuarioLogueado.getNombre(), "", "", "", 0
-            );
-
-     
-            String codPasaje = "PAS-" + (int) (Math.random() * 90000 + 10000);
-            com.mycompany.orbitix.modelo.Pasaje p = new com.mycompany.orbitix.modelo.Pasaje(
-                    codPasaje, precioFinal, numAsiento, clase, pas, vuelo, 
-                    new com.mycompany.orbitix.modelo.Equipaje(com.mycompany.orbitix.modelo.TipoEquipaje.MALETA_MANO)
-            );
-
-   
+        // 2. CAMBIO CLAVE: Usar la lista de objetos Pasaje que recibiste en el constructor
+        // Ya no calculamos precios ni creamos pasajeros, solo los agregamos a la compra
+        for (com.mycompany.orbitix.modelo.Pasaje p : pasajes) {
             nuevaCompra.agregarPasaje(p);
         }
 
-    
+        // 3. Crear y procesar el pago
         String idPago = "PAG-" + System.currentTimeMillis() % 10000;
         com.mycompany.orbitix.modelo.Pago objetoPago = new com.mycompany.orbitix.modelo.Pago(
                 idPago,
@@ -333,14 +301,13 @@ public class VistaCompra extends javax.swing.JFrame {
         nuevaCompra.setPago(objetoPago);
         objetoPago.procesarPago(); 
 
-     
+        // 4. Guardar en el archivo
         com.mycompany.orbitix.datos.RepositorioArchivos repo = new com.mycompany.orbitix.datos.RepositorioArchivos();
         repo.guardarCompra(nuevaCompra);
 
-       
+        // 5. Finalizar
         JOptionPane.showMessageDialog(this, "¡Compra Exitosa!\nCódigo: " + codigoCompra + "\nTotal pagado: $" + nuevaCompra.getTotal());
 
-     
         new VistaPrincipal(usuarioLogueado).setVisible(true);
         this.dispose();
 
@@ -397,17 +364,14 @@ public static void main(String args[]) {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
         modelo.setColumnIdentifiers(new String[]{"Pasajero", "Asiento", "Clase", "Precio"});
-        
-        String nombrePasajero = (usuarioLogueado != null) ? usuarioLogueado.getNombre() : "Pasajero";
-        
-        for (String asiento : asientos) {
-            int fila = Integer.parseInt(asiento.substring(1));
-            String clase = (fila <= 2) ? "Primera Clase" : (fila <= 5) ? "Ejecutiva" : "Económica";
-            double precio = vuelo.getPrecio();
-            if(fila <= 2) precio += 100;
-            else if(fila <= 5) precio += 50;
-            
-            modelo.addRow(new Object[]{nombrePasajero, asiento, clase, "$" + precio});
+
+        for (Pasaje p : pasajes) {
+            modelo.addRow(new Object[]{
+                p.getPasajero().getNombre() + " " + p.getPasajero().getApellido(),
+                p.getAsiento(),
+                p.getClase(),
+                "$" + p.getPrecio()
+            });
         }
     }
 

@@ -551,22 +551,32 @@ private void finalizarVenta() {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-         Vuelo vuelo = new Vuelo(); 
-        List<String> asientos = new ArrayList<>();
+java.awt.EventQueue.invokeLater(new Runnable() {
+    @Override
+    public void run() {
+        Vuelo vuelo = new Vuelo(); 
+        List<String> asientos = new java.util.ArrayList<>();
+        
+        // Creamos un usuario ficticio o nulo para que el constructor acepte la llamada
+        com.mycompany.orbitix.modelo.Usuario usuarioDummy = null; 
+
+        // Agregamos el 5to parámetro al final
         VistaRegistroPasajero dialog = new VistaRegistroPasajero(
             new javax.swing.JFrame(),
             vuelo,
             asientos,
-            true
+            true,
+            usuarioDummy // <--- ESTE ES EL 5TO PARÁMETRO QUE FALTABA
         );
 
-        dialog.setVisible(true);
-                
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                System.exit(0);
             }
         });
+        dialog.setVisible(true);   }
+});
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
