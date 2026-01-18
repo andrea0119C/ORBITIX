@@ -10,3 +10,4 @@
 12345678900;Andres Gonzales;;;;22
 1850341627;Paola;Pacheco;0998618483;paopacheco@gmail.com;19
 15;P;P;098;pao;12
+1243567809;Nicol;Cumbal;0986319159;andrea01@gmail.com;19
