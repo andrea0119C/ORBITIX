@@ -15,6 +15,25 @@ import javax.swing.*;
  */
 public class VistaRegistroPasajero extends javax.swing.JDialog {
 
+    private boolean esNombreValido(String texto) {
+    return texto != null && texto.matches("^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+$");
+}
+
+// Exactamente 10 dígitos
+private boolean esNumero10Digitos(String texto) {
+    return texto != null && texto.matches("^\\d{10}$");
+}
+
+// Edad solo números
+private boolean esEdadValida(String texto) {
+    return texto != null && texto.matches("^\\d+$");
+}
+
+// Email con @
+private boolean esEmailValido(String texto) {
+    return texto != null && texto.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+}
+
     private List<String> asientos;
     private Vuelo vuelo;
     private int indiceActual = 0;
@@ -426,8 +445,44 @@ if (indiceActual > 0) {
             JOptionPane.showMessageDialog(this, "Por favor, complete los campos obligatorios.");
             return;
         }
+        
+        if (!esNombreValido(nombre)) {
+            JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
+            txtNombre.requestFocus();
+            return;
+        }
+        
+        if (!esNombreValido(apellido)) {
+           JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
+           txtApellido.requestFocus();
+           return;
+        }
+        
+        if (!esNumero10Digitos(cedula)) {
+           JOptionPane.showMessageDialog(this, "La cédula debe tener 10 dígitos.");
+           txtCedula.requestFocus();
+           return;
+        }
+        
+        
+        if (!esNumero10Digitos(telefono)) {
+           JOptionPane.showMessageDialog(this, "El celular debe tener 10 dígitos.");
+           txtTelefono.requestFocus();
+           return;
+        }
 
-        // 2. Crear el objeto Pasajero
+        if (!esEmailValido(email)) {
+           JOptionPane.showMessageDialog(this, "Correo inválido. Debe ser por ejemplo: user@gmail.com");
+           txtEmail.requestFocus();
+           return;
+        }
+
+        if (!esEdadValida(edadStr)) {
+           JOptionPane.showMessageDialog(this, "La edad solo debe contener números.");
+           txtEdad.requestFocus();
+           return;
+        }
+        
         int edad = Integer.parseInt(edadStr);
         Pasajero pasajero = new Pasajero(cedula, nombre, apellido, telefono, email, edad);
 
