@@ -25,8 +25,7 @@ public interface RepositorioDatos {
     Pasajero buscarPasajeroPorCedula(String cedula);
 
 
-    void guardarCompra(Compra compra);
-    List<Compra> cargarCompras(); 
+    void guardarCompra(Compra compra); 
     
     
     void borrarTodo(); 

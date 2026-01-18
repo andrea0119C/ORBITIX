@@ -159,9 +159,7 @@ public void guardarPasaje(Pasaje p) {
     @Override public List<Pasajero> cargarPasajeros(){
         return new ArrayList<>();
     }
-    @Override public List<Compra> cargarCompras(){
-        return new ArrayList<>();
-    }
+
     @Override public void borrarTodo() {
         new File(PATH_VUELOS).delete();
         new File(PATH_COMPRAS).delete();
@@ -209,20 +207,6 @@ public void guardarPasaje(Pasaje p) {
         return null; 
     }
 
- public List<Compra> obtenerListaCompras() {
-    List<Compra> lista = new ArrayList<>();
-    try (BufferedReader br = new BufferedReader(new FileReader(PATH_COMPRAS))) {
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            String[] d = linea.split(";");
-            Usuario u = buscarUsuarioPorCedula(d[2]);
-            Compra c = new Compra(d[0], u);
-            asociarPasajesACompra(c); // Une los pasajes con la compra
-            lista.add(c);
-        }
-    } catch (IOException e) { e.printStackTrace(); }
-    return lista;
-}
 
  @Override
 public Usuario buscarUsuarioPorCedula(String cedula) {
@@ -241,31 +225,6 @@ public Usuario buscarUsuarioPorCedula(String cedula) {
         System.err.println("Error al buscar usuario: " + e.getMessage());
     }
     return null; 
-}
-
-private void asociarPasajesACompra(Compra c) {
-    try (BufferedReader br = new BufferedReader(new FileReader(PATH_PASAJES))) {
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            String[] d = linea.split(";");
-    
-            if (d[1].equals(c.getCodigo())) {
-                Vuelo v = buscarVueloPorCodigo(d[2]);
-                Pasajero p = buscarPasajeroPorCedula(d[4]);
-
-                ClaseAsiento clase = ClaseAsiento.valueOf(d[5]); 
-
-                TipoEquipaje tipoEq = TipoEquipaje.valueOf(d[6]);
-                Equipaje equipaje = new Equipaje(tipoEq);
-                
-                Pasaje pasaje = new Pasaje(d[0], v.getPrecio(), d[3], clase, p, v, equipaje);
-                
-                c.agregarPasaje(pasaje);
-            }
-        }
-    } catch (IOException | IllegalArgumentException e) { 
-        System.err.println("Error al reconstruir pasaje: " + e.getMessage());
-    }
 }
 
     @Override

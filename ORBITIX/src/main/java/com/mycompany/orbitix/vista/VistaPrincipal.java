@@ -39,6 +39,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     setLocationRelativeTo(null);
 
     }
+    
+    public VistaPrincipal(com.mycompany.orbitix.modelo.Usuario usuario) {
+    this(); // Llama al constructor base para inicializar componentes
+    this.usuarioLogueado = usuario;
+    if (usuario != null) {
+        labelsaludo.setText("Hola, " + usuario.getNombre());
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,7 +69,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         tablaVuelos = new javax.swing.JTable();
         btnSelecComprar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        btnCompras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1360, 677));
@@ -122,24 +129,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(this::btnSalirActionPerformed);
 
-        btnCompras.setBackground(new java.awt.Color(153, 0, 255));
-        btnCompras.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCompras.setForeground(new java.awt.Color(255, 255, 255));
-        btnCompras.setText("MIS COMPRAS");
-        btnCompras.addActionListener(this::btnComprasActionPerformed);
-
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(337, 337, 337)
-                .addComponent(labelsaludo, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(197, 197, 197))
-            .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGap(337, 337, 337)
+                        .addComponent(labelsaludo, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(211, 211, 211)
+                        .addComponent(btnSalir))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,12 +159,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(533, 533, 533)
                         .addComponent(btnSelecComprar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                    .addContainerGap(933, Short.MAX_VALUE)
-                    .addComponent(btnCompras)
-                    .addGap(313, 313, 313)))
+                .addContainerGap(269, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +169,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(labelsaludo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addGap(58, 58, 58)
                         .addComponent(btnSalir)))
                 .addGap(18, 18, 18)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -194,11 +189,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(btnSelecComprar)
                 .addContainerGap(184, Short.MAX_VALUE))
-            .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelPrincipalLayout.createSequentialGroup()
-                    .addGap(54, 54, 54)
-                    .addComponent(btnCompras)
-                    .addContainerGap(600, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,40 +240,27 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarVuelosActionPerformed
 
     private void btnSelecComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecComprarActionPerformed
-        int fila = tablaVuelos.getSelectedRow();
-        if (fila == -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
-            return;
+int fila = tablaVuelos.getSelectedRow();
+    if (fila == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un vuelo de la tabla primero.");
+        return;
+    }
+
+    String codigo = tablaVuelos.getValueAt(fila, 0).toString();
+    Vuelo seleccionado = null;
+    for(Vuelo v : listaVuelosActuales) {
+        if(v.getCodigo().equals(codigo)) {
+            seleccionado = v;
+            break;
         }
+    }
 
-        String codigo = tablaVuelos.getValueAt(fila, 0).toString();
-        Vuelo seleccionado = null;
-        for(Vuelo v : listaVuelosActuales) {
-            if(v.getCodigo().equals(codigo)) {
-                seleccionado = v;
-                break;
-            }
-        }
-
-        if (seleccionado != null) {
-            VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado);
-            mapa.setVisible(true);
-
-            List<String> asientos = mapa.getAsientosSeleccionados();
-
-            if (asientos != null && !asientos.isEmpty()) {
-                // AHORA LLAMAMOS A LA VENTANA DE REGISTRO Y PAGO
-                //VistaPasajerosYPago ventanaPago = new VistaPasajerosYPago(this, seleccionado, asientos, usuarioLogueado);
-                //ventanaPago.setVisible(true);
-            }
-        }
+    if (seleccionado != null) {
+        // ERROR CORREGIDO AQUÍ: Ahora pasamos 3 parámetros (this, seleccionado, usuarioLogueado)
+        VistaMapaAsientos mapa = new VistaMapaAsientos(this, seleccionado, this.usuarioLogueado);
+        mapa.setVisible(true);
+    }
     }//GEN-LAST:event_btnSelecComprarActionPerformed
-
-    private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
-    VistaHistorialCompras historial = new VistaHistorialCompras(this, this.usuarioLogueado);
-    historial.setVisible(true); 
-
-    }//GEN-LAST:event_btnComprasActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
                                         
@@ -324,7 +301,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarVuelos;
-    private javax.swing.JButton btnCompras;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSelecComprar;
     private javax.swing.JComboBox<String> cbseldestino;

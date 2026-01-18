@@ -158,21 +158,20 @@ public class VistaLogin extends javax.swing.JFrame {
     String pass = new String(txtcontra.getPassword()); 
 
     UsuarioControlador control = new com.mycompany.orbitix.controlador.UsuarioControlador();
+    // 'user' contiene toda la información del usuario que inició sesión
     Usuario user = control.login(email, pass);
 
     if (user != null) {
-        
         intentos = 0; 
         javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido: " + user.getNombre());
+
+        // CORRECCIÓN: Pasamos el objeto 'user' como argumento
+        VistaPrincipal principal = new VistaPrincipal(user); 
         
- 
-        VistaPrincipal principal = new VistaPrincipal(); 
         principal.setVisible(true); 
         this.dispose(); 
-       
         
     } else {
-        
         intentos++;
         
         if (intentos >= 3) {
@@ -188,7 +187,6 @@ public class VistaLogin extends javax.swing.JFrame {
                 "Correo o contraseña incorrectos.\nTe quedan " + restantes + " intentos.", 
                 "Error de Autenticación", 
                 javax.swing.JOptionPane.WARNING_MESSAGE);
-            
             
             txtcontra.setText("");
             txtcontra.requestFocus();
