@@ -211,39 +211,39 @@ public class VistaRegistro extends javax.swing.JFrame {
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
 
-String email = txtusuario1LOG.getText().trim();
-String cedula = txtusuario1LOG1.getText().trim();
-String nombre = new String(txtNombre.getText()).trim(); 
-String pass = new String(txtcontra1.getPassword()).trim();
+    String email = txtusuario1LOG.getText().trim();
+    String cedula = txtusuario1LOG1.getText().trim();
+    String nombre = new String(txtNombre.getText()).trim(); 
+    String pass = new String(txtcontra1.getPassword()).trim();
 
-UsuarioControlador control = new UsuarioControlador();
+    UsuarioControlador control = new UsuarioControlador();
 
-if (email.isEmpty() || cedula.isEmpty() || nombre.isEmpty() || pass.isEmpty()
-        || email.equals("Ejemplo: usuario@correo.com")) {
-    JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
-    return;
-}
+    if (email.isEmpty() || cedula.isEmpty() || nombre.isEmpty() || pass.isEmpty()
+            || email.equals("Ejemplo: usuario@correo.com")) {
+        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+        return;
+    }
 
-if (!email.contains("@") || !email.contains(".")) {
-    JOptionPane.showMessageDialog(this,
-            "El formato del correo es incorrecto.\nDebe ser tipo: usuario@correo.com",
-            "Formato Inválido",
-            JOptionPane.ERROR_MESSAGE);
-    return;
-}
+    if (!email.contains("@") || !email.contains(".")) {
+        JOptionPane.showMessageDialog(this,
+                "El formato del correo es incorrecto.\nDebe ser tipo: usuario@correo.com",
+                "Formato Inválido",
+                JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-if (control.existeCorreo(email)) {
-    JOptionPane.showMessageDialog(this, "Este correo ya está registrado.");
-    return;
-}
+    if (control.existeCorreo(email)) {
+        JOptionPane.showMessageDialog(this, "Este correo ya está registrado.");
+        return;
+    }
 
-if (control.registrar(cedula, nombre, email, pass)) {
-    JOptionPane.showMessageDialog(this, "¡Cuenta creada exitosamente!");
-    new VistaLogin().setVisible(true);
-    this.dispose();
-} else {
-    JOptionPane.showMessageDialog(this, "Hubo un error al guardar los datos.");
-}
+    if (control.registrar(cedula, nombre, email, pass)) {
+        JOptionPane.showMessageDialog(this, "¡Cuenta creada exitosamente!");
+        new VistaLogin().setVisible(true);
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Hubo un error al guardar los datos.");
+    }
 
 
     }//GEN-LAST:event_btnguardarActionPerformed

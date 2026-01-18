@@ -20,7 +20,6 @@ public class Ruta {
         this.duracion = duracion;
     }
     public String getDuracionFormateada() {
-    // Convertimos las horas decimales (ej: 1.5) a minutos totales (90)
     int totalMinutos = (int) Math.round(this.duracion * 60);
     
     int h = totalMinutos / 60;

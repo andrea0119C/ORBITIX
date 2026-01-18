@@ -23,13 +23,11 @@ public class PasajeControlador {
     private static final String ARCHIVO = "pasajeros.txt";
 
     public boolean registrarVentaTotal(List<Pasaje> pasajes) {
-        // 'true' en FileWriter habilita el modo "append" (no borra lo anterior)
         try (FileWriter fw = new FileWriter(ARCHIVO, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
 
             for (Pasaje p : pasajes) {
-                // Estructura de la línea: Cedula;Nombre Completo;Edad;Vuelo;Asiento;Equipaje;PrecioBase;CostoExtra
                 StringBuilder sb = new StringBuilder();
                 sb.append(p.getPasajero().getCedula()).append(";");
                 sb.append(p.getPasajero().getNombre()).append(" ").append(p.getPasajero().getApellido()).append(";");
