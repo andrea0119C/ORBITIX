@@ -8,6 +8,7 @@ import com.mycompany.orbitix.modelo.Pasaje;
 import com.mycompany.orbitix.modelo.Usuario;
 import com.mycompany.orbitix.modelo.Vuelo;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -363,14 +364,16 @@ public static void main(String args[]) {
     private void llenarTablaResumen() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
-        modelo.setColumnIdentifiers(new String[]{"Pasajero", "Asiento", "Clase", "Precio"});
 
         for (Pasaje p : pasajes) {
+            // Mostramos la suma de base + recargo en la tabla
+            double precioFinal = p.getPrecio() + p.getRecargo(); 
+
             modelo.addRow(new Object[]{
-                p.getPasajero().getNombre() + " " + p.getPasajero().getApellido(),
+                p.getPasajero().getNombre(),
                 p.getAsiento(),
                 p.getClase(),
-                "$" + p.getPrecio()
+                "$" + String.format(Locale.US, "%.2f", precioFinal)
             });
         }
     }

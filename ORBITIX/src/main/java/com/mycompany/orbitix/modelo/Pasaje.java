@@ -78,6 +78,25 @@ public class Pasaje {
     public void setEquipaje(Equipaje equipaje) {
         this.equipaje = equipaje;
     }
+
+    public double getRecargo() {
+
+        double recargoExtra = 0;
+
+        // 1. Recargo por Clase
+        if (this.clase == ClaseAsiento.PRIMERA_CLASE) recargoExtra += 100.0;
+        else if (this.clase == ClaseAsiento.EJECUTIVA) recargoExtra += 50.0;
+
+        // 2. Recargo por Equipaje
+        if (this.equipaje != null) {
+            if (this.equipaje.getTipo() == TipoEquipaje.MALETA_BODEGA) {
+                recargoExtra += 50.0; // Aquí están los 50.0 que viste en tu archivo
+            }
+        }
+        
+        return recargoExtra;
+  
+    }
     
     
 }

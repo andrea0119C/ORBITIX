@@ -38,11 +38,12 @@ public class RepositorioArchivos implements RepositorioDatos {
 
     @Override
     public void guardarCompra(Compra c) {
-
+        // Bloque 1: Guardar la Compra general
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_COMPRAS, true))) {
-            String linea = String.format("%s;%.2f;%s;%s;%s",
+            // Usamos Locale.US para que el total siempre se guarde con punto decimal (ej: 1300.00)
+            String linea = String.format(Locale.US, "%s;%.2f;%s;%s;%s",
                     c.getCodigo(),
-                    c.getTotal(),
+                    c.getTotal(), // Este total ya incluye recargos gracias al cambio en Compra.java
                     c.getUsuario().getCedula(),
                     c.getPago().getMetodo(),
                     c.getPago().getId());
@@ -50,21 +51,22 @@ public class RepositorioArchivos implements RepositorioDatos {
             bw.newLine();
         } catch (IOException e) { e.printStackTrace(); }
 
+        // Bloque 2: Guardar los Pasajes detallados de esa compra
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PATH_PASAJES, true))) {
             for (Pasaje p : c.getPasajes()) {
-                String linea = String.format("%s;%s;%s;%s;%s",
+                // Aquí guardamos el precio total del pasaje individual
+                String linea = String.format(Locale.US, "%s;%s;%s;%s;%s;%.2f",
                         p.getCodigo(),
                         c.getCodigo(),
                         p.getVuelo().getCodigo(),
                         p.getAsiento(),
-                        p.getPasajero().getCedula());
+                        p.getPasajero().getCedula(),
+                        p.getPrecio() + p.getRecargo()); // Aseguramos guardar el valor real con recargo
                 bw.write(linea);
                 bw.newLine();
             }
         } catch (IOException e) { e.printStackTrace(); }
     }
-
- 
 
     @Override
     public List<Vuelo> cargarVuelos() {

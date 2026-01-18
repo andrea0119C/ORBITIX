@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.orbitix.modelo;
 
 import java.util.ArrayList;
@@ -24,9 +20,28 @@ public class Compra {
         this.total = 0;
     }
 
+    /**
+     * Modificado para sumar precio base + recargo.
+     * Esto soluciona que en el archivo de compras solo apareciera el precio base.
+     * @param pasaje
+     */
     public void agregarPasaje(Pasaje pasaje) {
-        pasajes.add(pasaje);
-        total += pasaje.getPrecio();
+        if (pasaje != null) {
+            pasajes.add(pasaje);
+            // Sumamos el precio (1250.0) más el recargo (50.0) 
+            // para que el total de la compra sea 1300.0
+            this.total += (pasaje.getPrecio() + pasaje.getRecargo());
+        }
+    }
+
+    /**
+     * Método de seguridad para recalcular el total en cualquier momento
+     */
+    public void recalcularTotal() {
+        this.total = 0;
+        for (Pasaje p : pasajes) {
+            this.total += (p.getPrecio() + p.getRecargo());
+        }
     }
 
     public boolean confirmarCompra() {
@@ -37,20 +52,27 @@ public class Compra {
     public String getCodigo(){
         return codigo;
     }
+    
     public Date getFecha(){
         return fecha;
     }
-    public double getTotal(){return total;
+    
+    public double getTotal(){
+        return total;
     }
+    
     public Usuario getUsuario(){
         return usuario;
     }
+    
     public List<Pasaje> getPasajes(){
         return pasajes;
     }
+    
     public Pago getPago(){
         return pago;
     }
+    
     public void setPago(Pago pago){
         this.pago = pago;
     }
