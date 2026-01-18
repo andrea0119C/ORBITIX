@@ -19,17 +19,14 @@ public class VistaRegistroPasajero extends javax.swing.JDialog {
     return texto != null && texto.matches("^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+$");
 }
 
-// Exactamente 10 dígitos
 private boolean esNumero10Digitos(String texto) {
     return texto != null && texto.matches("^\\d{10}$");
 }
 
-// Edad solo números
 private boolean esEdadValida(String texto) {
     return texto != null && texto.matches("^\\d+$");
 }
 
-// Email con @
 private boolean esEmailValido(String texto) {
     return texto != null && texto.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
 }
@@ -45,13 +42,12 @@ private boolean esEmailValido(String texto) {
         this.vuelo = vuelo;
         this.asientos = asientos;
 
-        // Configuración de fondo
         Fondo fondo = new Fondo("/recursos/fondo_VPrincipal_orbitix.png");
         fondo.setLayout(new java.awt.BorderLayout());
 
-        initComponents(); // Inicializa componentes de NetBeans
+        initComponents(); 
         
-        // Personalización post-init
+        
         configurarComboBox();
         configurarDiseno();
         
@@ -104,7 +100,7 @@ private boolean esEmailValido(String texto) {
 
         lblAsiento.setText("Asiento: " + asientos.get(indiceActual));
 
-        // Limpiar campos para el nuevo registro
+       
         txtNombre.setText("");
         txtApellido.setText("");
         txtCedula.setText("");
@@ -432,7 +428,7 @@ if (indiceActual > 0) {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
                                                 
     try {
-        // 1. Captura de datos básicos
+        
         String nombre = txtNombre.getText().trim();
         String apellido = txtApellido.getText().trim();
         String cedula = txtCedula.getText().trim();
@@ -486,7 +482,7 @@ if (indiceActual > 0) {
         int edad = Integer.parseInt(edadStr);
         Pasajero pasajero = new Pasajero(cedula, nombre, apellido, telefono, email, edad);
 
-        // 3. Crear el objeto Equipaje basado en la selección
+        
         TipoEquipaje tipoEnum;
         if (textoEquipaje.equals("Maleta de mano")) tipoEnum = TipoEquipaje.MALETA_MANO;
         else if (textoEquipaje.equals("Maleta de Bodega")) tipoEnum = TipoEquipaje.MALETA_BODEGA;
@@ -494,21 +490,21 @@ if (indiceActual > 0) {
         
         Equipaje objetoEquipaje = new Equipaje(tipoEnum);
 
-        // 4. Crear el Pasaje (Asignamos ECONOMICA por defecto o según tu lógica)
+        
         String codigoTkt = "TKT-" + System.currentTimeMillis() + "-" + (indiceActual + 1);
         
-        // Pasamos: codigo, precio, numAsiento, CLASE (Enum), pasajero, vuelo, EQUIPAJE (Objeto)
+        
         Pasaje p = new Pasaje(codigoTkt, vuelo.getPrecio(), asientos.get(indiceActual), 
                               ClaseAsiento.ECONOMICA, pasajero, vuelo, objetoEquipaje);
 
-        // 5. Guardar en la lista temporal
+        
         if (indiceActual < pasajesRegistrados.size()) {
             pasajesRegistrados.set(indiceActual, p);
         } else {
             pasajesRegistrados.add(p);
         }
 
-        // 6. Navegación
+       
         if (indiceActual < asientos.size() - 1) {
             indiceActual++;
             actualizarInterfaz();
@@ -523,7 +519,7 @@ if (indiceActual > 0) {
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void CBEquipajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBEquipajeActionPerformed
-        // TODO add your handling code here:
+        
         CBEquipaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
         "Artículo personal", 
         "Maleta de mano", 
