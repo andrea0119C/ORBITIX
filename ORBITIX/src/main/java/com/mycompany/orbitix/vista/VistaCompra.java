@@ -305,6 +305,25 @@ public class VistaCompra extends javax.swing.JFrame {
         // 4. Guardar en el archivo
         com.mycompany.orbitix.datos.RepositorioArchivos repo = new com.mycompany.orbitix.datos.RepositorioArchivos();
         repo.guardarCompra(nuevaCompra);
+        
+        String numFactura = "FAC-" + (System.currentTimeMillis() % 100000);
+
+// 1) Generar factura
+String facturaTxt = com.mycompany.orbitix.util.GenerarFactura.generarFactura(
+        numFactura, usuarioLogueado, vuelo, pasajes
+);
+
+// 2) Guardar factura en .txt
+String nombreArchivo = "factura_" + numFactura + ".txt";
+repo.guardarFacturaTxt(nombreArchivo, facturaTxt);
+
+// 3) Mostrar factura en pantalla
+javax.swing.JTextArea area = new javax.swing.JTextArea(facturaTxt);
+area.setEditable(false);
+javax.swing.JScrollPane sp = new javax.swing.JScrollPane(area);
+sp.setPreferredSize(new java.awt.Dimension(650, 450));
+javax.swing.JOptionPane.showMessageDialog(this, sp, "Factura generada (Guardada en " + nombreArchivo + ")", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
 
         // 5. Finalizar
         JOptionPane.showMessageDialog(this, "¡Compra Exitosa!\nCódigo: " + codigoCompra + "\nTotal pagado: $" + nuevaCompra.getTotal());

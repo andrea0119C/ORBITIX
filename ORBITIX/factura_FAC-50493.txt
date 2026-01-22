@@ -1,0 +1,28 @@
+============================================
+               ORBITIX - FACTURA            
+============================================
+N° Factura: FAC-50493
+Fecha/Hora: 21/01/2026 22:37
+--------------------------------------------
+CLIENTE:
+Nombre : Andrea
+--------------------------------------------
+VUELO:
+Código : V008
+Ruta   : Galapagos -> Guayaquil
+Fecha  : 30/01/2026
+--------------------------------------------
+DETALLE:
+Pasajero | Asiento | Clase | Base | Recargo | Desc | Total
+----------------------------------------------------------
+Paola | C12 | ECONOMICA | 185.00 | 0.00 | 0.00 | 185.00
+Pamela | D12 | ECONOMICA | 185.00 | 50.00 | 0.00 | 235.00
+   -> Motivo recargo: Recargo aplicado por clase/equipaje
+--------------------------------------------
+RESUMEN:
+Subtotal (Base)   : $370.00
+Total Recargos    : $50.00
+Total Descuentos  : $0.00
+TOTAL A PAGAR     : $420.00
+============================================
+Gracias por su compra.

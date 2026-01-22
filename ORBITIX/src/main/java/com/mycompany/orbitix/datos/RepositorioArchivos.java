@@ -257,4 +257,12 @@ public Usuario buscarUsuarioPorCedula(String cedula) {
     }
     return null;
 }
+    public void guardarFacturaTxt(String nombreArchivo, String contenidoFactura) {
+    try (java.io.BufferedWriter bw = new java.io.BufferedWriter(new java.io.FileWriter(nombreArchivo))) {
+        bw.write(contenidoFactura);
+    } catch (Exception e) {
+        throw new RuntimeException("No se pudo guardar la factura: " + e.getMessage());
+    }
+}
+
 }
